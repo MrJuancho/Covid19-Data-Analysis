@@ -13,7 +13,6 @@ DFCasos = pd.DataFrame({'Sexo':df2.iloc[:,2],
                         'Residencia':df2.iloc[:,4],
                         'Derechohabiencia':df2.iloc[:,7],
                         'Fecha Notif':df2.iloc[:,8],
-                        'Signos y sintomas':df2.iloc[:,9],
                         'Toma de muestra':df2.iloc[:,10],
                         'Resultado':df2.iloc[:,12],
                         'Fecha Result':df2.iloc[:,13],
@@ -32,10 +31,65 @@ DFCasos['Estatus'] = DFCasos['Estatus'].replace(regex=[r'^AL.*'], value='ALTA')
 DFCasos['Estatus'] = DFCasos['Estatus'].replace(regex=[r'^DE.*',r'^CA.*'], value='DEFUNCION')
 DFCasos['Estatus'] = DFCasos['Estatus'].replace(regex=[r'^HOS.*',r'^TER.*',r'^PED.*'], value='HOSPITALIZADO')
 
+DFCasos['Residencia'] = DFCasos['Residencia'].fillna('FORANEO')
+DFCasos['Residencia'] = DFCasos['Residencia'].replace(regex=[r'^NIC.*',r'^CHIA.*',r'(^.*JA.*$)',r'(^.*VER.*$)',r'^HID.*',r'^DA.*',r'(^.*EEUU.*$)',r'^MOR.*',r'^PUEB.*',r'^SONO.*',r'(^.*JUAR.*$)'], value='FORANEO')   
+DFCasos['Residencia'] = DFCasos['Residencia'].replace(regex=[r'(^.*GUSTAVO.*$)',r'(^.*GAM.*$)'], value='GUSTAVO A. MADERO')
+DFCasos['Residencia'] = DFCasos['Residencia'].replace(regex=[r'(^.*IZTAP.*$)',r'(^.*APA.*$)'], value='IZTAPALAPA')
+DFCasos['Residencia'] = DFCasos['Residencia'].replace(regex=[r'(^.*IZTAC.*$)',r'(^.*LCO.*$)',r'(^.*AGRICOLA.*$)',r'(^.*ORIENTAL.*$)'], value='IZTACALCO')
+DFCasos['Residencia'] = DFCasos['Residencia'].replace(regex=[r'(^.*CHIMA.*$)',r'(^.*HUACAN.*$)'], value='CHIMALHUACAN')
+DFCasos['Residencia'] = DFCasos['Residencia'].replace(regex=[r'(^.*NEZA.*$)',r'(^.*AV..*$)',r'(^.*CORO.*$)'], value='NEZAHUALCOYOTL')
+DFCasos['Residencia'] = DFCasos['Residencia'].replace(regex=[r'(^.*BENI.*$)'], value='BENITO JUAREZ')
+DFCasos['Residencia'] = DFCasos['Residencia'].replace(regex=[r'(^.*CUAU.*$)',r'(^.*CUAH.*$)'], value='CUAUHTEMOC')
+DFCasos['Residencia'] = DFCasos['Residencia'].replace(regex=[r'(^.*COYO.*$)'], value='COYOACAN')
+DFCasos['Residencia'] = DFCasos['Residencia'].replace(regex=[r'(^.*CUAJ.*$)'], value='CUAJIMALPA')
+DFCasos['Residencia'] = DFCasos['Residencia'].replace(regex=[r'(^.*ECAT.*$)'], value='ECATEPEC')
+DFCasos['Residencia'] = DFCasos['Residencia'].replace(regex=[r'(^.*XOCH.*$)'], value='XOCHIMILCO')
+DFCasos['Residencia'] = DFCasos['Residencia'].replace(regex=[r'(^.*ALVARO.*$)'], value='ALVARO OBREGON')
+DFCasos['Residencia'] = DFCasos['Residencia'].replace(regex=[r'(^.*AMECA.*$)',r'(^.*CAMINO.*$)'], value='AMECAMECA')
+DFCasos['Residencia'] = DFCasos['Residencia'].replace(regex=[r'(^.*JUCHITE.*$)'], value='JUCHITEPEC')
+DFCasos['Residencia'] = DFCasos['Residencia'].replace(regex=[r'(^.*TLA.*$)'], value='TLALPAN')
+DFCasos['Residencia'] = DFCasos['Residencia'].replace(regex=[r'(^.*AZCAP.*$)'], value='AZCAPOTZALCO')
+DFCasos['Residencia'] = DFCasos['Residencia'].replace(regex=[r'(^.*IXTA.*$)',r'(^.*LA MAG.*$)'], value='IXTAPALUCA')
+DFCasos['Residencia'] = DFCasos['Residencia'].replace(regex=[r'(^.*MIGUE.*$)'], value='MIGUEL HIDALGO')
+DFCasos['Residencia'] = DFCasos['Residencia'].replace(regex=[r'(^.*VENU.*$)'], value='VENUSTIANO CARRANZA')
+DFCasos['Residencia'] = DFCasos['Residencia'].replace(regex=[r'(^.*PAZ.*$)',r'(^.*REYES.*$)'], value='LOS REYES - LA PAZ')
+DFCasos['Residencia'] = DFCasos['Residencia'].replace(regex=[r'(^.*TECA.*$)',r'(^.*AMAC.*$)'], value='TECAMAC')
+DFCasos['Residencia'] = DFCasos['Residencia'].replace(regex=[r'(^.*TEX.*$)',r'(^.*COCO.*$)'], value='TEXCOCO')
+DFCasos['Residencia'] = DFCasos['Residencia'].replace(regex=[r'(^.*CHIN.*$)',r'(^.*CONCUAC.*$)'], value='CHINCONCUAC')
+DFCasos['Residencia'] = DFCasos['Residencia'].replace(regex=[r'(^.*TULTE.*$)',r'(^.*SAN PABLO.*$)'], value='TULTEPEC')
+DFCasos['Residencia'] = DFCasos['Residencia'].replace(regex=[r'(^.*NAUC.*$)'], value='NAUCALPAN')
+DFCasos['Residencia'] = DFCasos['Residencia'].replace(regex=[r'(^.*ATEN.*$)'], value='ATENCO')
+DFCasos['Residencia'] = DFCasos['Residencia'].replace(regex=[r'(^.*HUIX.*$)'], value='HUIXQUILUCAN')
+DFCasos['Residencia'] = DFCasos['Residencia'].replace(regex=[r'(^.*ACOL.*$)'], value='ACOLMAN')
+DFCasos['Residencia'] = DFCasos['Residencia'].replace(regex=[r'(^.*TOL.*$)'], value='TOLUCA')
+DFCasos['Residencia'] = DFCasos['Residencia'].replace(regex=[r'(^.*LER.*$)'], value='LERMA')
+DFCasos['Residencia'] = DFCasos['Residencia'].replace(regex=[r'(^.*TEPET.*$)',r'(^.*LIXPA.*$)'], value='TEPETLIXPA')
+DFCasos['Residencia'] = DFCasos['Residencia'].replace(regex=[r'(^.*TEOL.*$)'], value='TEOLOYUCAN')
+DFCasos['Residencia'] = DFCasos['Residencia'].replace(regex=[r'(^.*CHICO.*$)'], value='CHICOLOAPAN')
+DFCasos['Residencia'] = DFCasos['Residencia'].replace(regex=[r'(^.*NICOL.*$)'], value='NICOLAS ROMERO')
+DFCasos['Residencia'] = DFCasos['Residencia'].replace(regex=[r'(^.*TENAN.*$)'], value='TENANGO DEL VALLE')
+
+#Regex para encontrar una serie de letras en un string >> r'(^.*VER.*$)'
+
+DFCasos['Derechohabiencia'] = DFCasos['Derechohabiencia'].fillna('NINGUNO')
+
+DFCasos['Fecha Notif'] = DFCasos['Fecha Notif'].fillna('01/01/2000  12:00:00 a. m.')
+
+DFCasos['Toma de muestra']=DFCasos['Toma de muestra'].fillna('PENDIENTE')
+DFCasos['Toma de muestra'] = DFCasos['Toma de muestra'].replace(regex=[r'(^.*PENS.*$)',r'(^.*PEND.*$)',r'(^.*NEG.*$)',r'(^.*POS.*$)'], value='PENDIENTE')
+DFCasos['Toma de muestra'] = DFCasos['Toma de muestra'].replace(regex=[r'(^.*NO.*$)'], value='NO SE TOMÓ')
+
 DFCasos['Resultado'] = DFCasos['Resultado'].fillna('SOSPECHOSO')
 DFCasos['Resultado'] = DFCasos['Resultado'].replace(regex=[r'^POS.*', r'^´POS.*'], value='POSITIVO')
 DFCasos['Resultado'] = DFCasos['Resultado'].replace(regex=[r'^NEG.*'], value='NEGATIVO')
 DFCasos['Resultado'] = DFCasos['Resultado'].replace(regex=[r'^IN.*', r'^´NO.*',r'M.*',r'NO.*',r'PEN.*',r'REC.*',r'SIN.*'], value='SOSPECHOSO')
+
+DFCasos['Fecha Result'] = DFCasos['Fecha Result'].fillna('PENDIENTE')
+DFCasos['Fecha Result'] = DFCasos['Fecha Result'].replace(regex=[r'(^.*PENS.*$)',r'(^.*PEND.*$)'], value='PENDIENTE')
+DFCasos['Fecha Result'] = DFCasos['Fecha Result'].replace(regex=[r'(^.*NO.*$)',r'(^.*ERR.*$)',r'(^.*DEF.*$)',r'(^.*SIN.*$)'], value='NO SE TOMÓ')
+DFCasos['Fecha Result'] = DFCasos['Fecha Result'].replace(regex=[r'(^.*NEG.*$)'], value='NEGATIVO')
+DFCasos['Fecha Result'] = DFCasos['Fecha Result'].replace(regex=[r'(^.*PO.*$)'], value='POSITIVO')
+
 
 #Conversion de datos correspondientes
 
@@ -44,9 +98,13 @@ DFCasos['Resultado'] = DFCasos['Resultado'].replace(regex=[r'^IN.*', r'^´NO.*',
 #Organizar los datos por Columna
 
 DFResultados = pd.DataFrame([DFCasos['Resultado'],DFCasos['Fecha Result']]).transpose()
-#DFResultados = np.where(DFResultados['Resultado']==DFResultados['Fecha Result'],[DFResultados['Fecha Result'],DFResultados['Resultado']],[DFResultados['Resultado'],DFResultados['Fecha Result']])
-print(DFResultados)
+
+DFCasos.loc[DFCasos['Resultado'] == r'[0-9]',['Resultado','Fecha Result']] = DFCasos.loc[DFCasos['Resultado'] == r'[0-9]',['Fecha Result','Resultado']].values
+
+#DFRaux = np.where(DFResultados['Fecha Result']==r'(^*.[a-zA-Z].*$)',[DFResultados['Fecha Result'],DFResultados['Resultado']],[DFResultados['Resultado'],DFResultados['Fecha Result']])
+#DFResultados = pd.DataFrame({'Resultado':DFRaux[0],'Fecha Result':DFRaux[1]})
+#print(DFRaux)
 
 
-DFCasos.to_excel('Verificar.xlsx')
+DFResultados.to_excel('Verificar.xlsx')
 #DFEdad = DFCasos['']
