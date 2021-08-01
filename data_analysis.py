@@ -81,7 +81,7 @@ DFCasos['Toma de muestra'] = DFCasos['Toma de muestra'].replace(regex=[r'(^.*NO.
 
 DFCasos['Resultado'] = DFCasos['Resultado'].fillna('SOSPECHOSO')
 DFCasos['Resultado'] = DFCasos['Resultado'].replace(regex=[r'^POS.*', r'^´POS.*'], value='POSITIVO')
-DFCasos['Resultado'] = DFCasos['Resultado'].replace(regex=[r'^NEG.*'], value='NEGATIVO')
+DFCasos['Resultado'] = DFCasos['Resultado'].replace(regex=[r'^NEG.*',r'^ NEG.*'], value='NEGATIVO')
 DFCasos['Resultado'] = DFCasos['Resultado'].replace(regex=[r'^IN.*', r'^´NO.*',r'M.*',r'NO.*',r'PEN.*',r'REC.*',r'SIN.*'], value='SOSPECHOSO')
 
 DFCasos['Fecha Result'] = DFCasos['Fecha Result'].fillna('PENDIENTE')
@@ -91,20 +91,14 @@ DFCasos['Fecha Result'] = DFCasos['Fecha Result'].replace(regex=[r'(^.*NEG.*$)']
 DFCasos['Fecha Result'] = DFCasos['Fecha Result'].replace(regex=[r'(^.*PO.*$)'], value='POSITIVO')
 
 
-#Conversion de datos correspondientes
-
-#DFCasos= DFCasos.convert_dtypes().dtypes
-
 #Organizar los datos por Columna
+dateinResult = DFCasos['Resultado'].str.findall(r'(^.*[A-Z].$)')
+DFCasos['Fecha Result'], DFCasos['Resultado'] = np.where(dateinResult.isnull() ,[DFCasos['Resultado'],DFCasos['Fecha Result']],[DFCasos['Fecha Result'],DFCasos['Resultado']])
 
-DFResultados = pd.DataFrame([DFCasos['Resultado'],DFCasos['Fecha Result']]).transpose()
+#Segunda normalizacion de datos
 
-DFCasos.loc[DFCasos['Resultado'] == r'[0-9]',['Resultado','Fecha Result']] = DFCasos.loc[DFCasos['Resultado'] == r'[0-9]',['Fecha Result','Resultado']].values
+DFCasos['Fecha Result'] = DFCasos['Fecha Result'].replace(regex=[r'(^.*P.*$)',r'(^.*NE.*$)'], value='PENDIENTE')
+DFCasos['Resultado'] = np.where(DFCasos['Resultado'].isin(['POSITIVO','NEGATIVO','SOSPECHOSO']),DFCasos['Resultado'],'SOSPECHOSO')
+#Si necesitamos cambiar casos en los que no se parezca a ciertos datos aplicacmos 'np.where(DFCasos['Resultado'].isin(['POSITIVO','NEGATIVO','SOSPECHOSO']),DFCasos['Resultado'],'SOSPECHOSO')'
 
-#DFRaux = np.where(DFResultados['Fecha Result']==r'(^*.[a-zA-Z].*$)',[DFResultados['Fecha Result'],DFResultados['Resultado']],[DFResultados['Resultado'],DFResultados['Fecha Result']])
-#DFResultados = pd.DataFrame({'Resultado':DFRaux[0],'Fecha Result':DFRaux[1]})
-#print(DFRaux)
-
-
-DFResultados.to_excel('Verificar.xlsx')
-#DFEdad = DFCasos['']
+DFCasos.to_excel('Verificar.xlsx')
