@@ -94,6 +94,7 @@ DFCasos['Fecha Result'] = DFCasos['Fecha Result'].replace(regex=[r'(^.*PO.*$)'],
 #Organizar los datos por Columna
 dateinResult = DFCasos['Resultado'].str.findall(r'(^.*[A-Z].$)')
 DFCasos['Fecha Result'], DFCasos['Resultado'] = np.where(dateinResult.isnull() ,[DFCasos['Resultado'],DFCasos['Fecha Result']],[DFCasos['Fecha Result'],DFCasos['Resultado']])
+ageinGender = DFCasos['Sexo'].str.findall(r'(^.*[0-9].$)')
 
 #Segunda normalizacion de datos
 
@@ -102,3 +103,4 @@ DFCasos['Resultado'] = np.where(DFCasos['Resultado'].isin(['POSITIVO','NEGATIVO'
 #Si necesitamos cambiar casos en los que no se parezca a ciertos datos aplicacmos 'np.where(DFCasos['Resultado'].isin(['POSITIVO','NEGATIVO','SOSPECHOSO']),DFCasos['Resultado'],'SOSPECHOSO')'
 
 DFCasos.to_excel('Verificar.xlsx')
+ageinGender.to_excel('Verificar12.xlsx')
