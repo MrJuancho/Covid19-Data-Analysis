@@ -94,7 +94,6 @@ DFCasos['Fecha Result'] = DFCasos['Fecha Result'].replace(regex=[r'(^.*PO.*$)'],
 #Organizar los datos por Columna
 dateinResult = DFCasos['Resultado'].str.findall(r'(^.*[A-Z].$)')
 DFCasos['Fecha Result'], DFCasos['Resultado'] = np.where(dateinResult.isnull() ,[DFCasos['Resultado'],DFCasos['Fecha Result']],[DFCasos['Fecha Result'],DFCasos['Resultado']])
-ageinGender = DFCasos['Sexo'].str.findall(r'(^.*[0-9].$)')
 
 #Segunda normalizacion de datos
 
@@ -102,5 +101,29 @@ DFCasos['Fecha Result'] = DFCasos['Fecha Result'].replace(regex=[r'(^.*P.*$)',r'
 DFCasos['Resultado'] = np.where(DFCasos['Resultado'].isin(['POSITIVO','NEGATIVO','SOSPECHOSO']),DFCasos['Resultado'],'SOSPECHOSO')
 #Si necesitamos cambiar casos en los que no se parezca a ciertos datos aplicacmos 'np.where(DFCasos['Resultado'].isin(['POSITIVO','NEGATIVO','SOSPECHOSO']),DFCasos['Resultado'],'SOSPECHOSO')'
 
+DFCasos['Edad'] = DFCasos['Edad'].fillna('SIN DATO')
+DFCasos['Edad'] = DFCasos['Edad'].replace(regex=[r'(^.*RN.*$)',r'(^.*D.*$)',r'(^.*ME.*$)',r'(^.*d.*$)',r'(^.*m.*$)'], value=0)
+
+
+DFCasos['Sexo'] = DFCasos['Sexo'].fillna('SIN DATO')
+DFCasos['Sexo'] = DFCasos['Sexo'].replace(regex=[r'(^.*F.*$)'], value='F')
+DFCasos['Sexo'] = DFCasos['Sexo'].replace(regex=[r'(^.*M.*$)',r'(^.*H.*$)',r'(^.*N.*$)'], value='M')
+DFCasos['Sexo'] = DFCasos['Sexo'].replace(regex=[r'(^.*RN.*$)',r'(^.*D.*$)'], value= 0)
+DFCasos['Sexo'] = DFCasos['Sexo'].replace(regex=[r'(^.*AÑ.*$)'],value='')
+
+
+ageinGender = DFCasos['Sexo'].str.findall(r'(^.*[A-Z].*$)')
+DFCasos['Sexo'], DFCasos['Edad'] = np.where(ageinGender.isnull() ,[DFCasos['Edad'],DFCasos['Sexo']],[DFCasos['Sexo'],DFCasos['Edad']])
+
+DFCasos['Sexo'] = DFCasos['Sexo'].replace(regex=[r'(^.*F.*$)'], value='F')
+DFCasos['Sexo'] = DFCasos['Sexo'].replace(regex=[r'(^.*M.*$)',r'(^.*H.*$)',r'(^.*N.*$)',r'(^.*,M.*$)'], value='M')
+DFCasos['Sexo'] = DFCasos['Sexo'].replace(regex=[r'(^.*G.*$)',r'(^.*SN.*$)',r'(^.*X.*$)',r'(^.*R.*$)'], value='OTRO')
+
+DFCasos['Edad'] = DFCasos['Edad'].replace(regex=[r'(^.*M.*$)',r'(^.*H.*$)',r'(^.*N.*$)',r'(^.*,M.*$)'], value='M')
+DFCasos['Edad'] = np.where(~DFCasos['Edad'].isin(['M','F','H','NIÑO']),DFCasos['Edad'],'SIN DATO')
+DFCasos['Sexo'] = np.where(DFCasos['Sexo'].isin(['M','F','OTRO']),DFCasos['Sexo'],'SIN DATO')
+
+#ageinGender = DFCasos['Sexo'].str.findall(r'(^.*[0-9].*$)')
+#DFCasos['Resultado'] = np.where(DFCasos['Resultado'].isin(['M','F','0']),DFCasos['Resultado'],'OTRO')
+
 DFCasos.to_excel('Verificar.xlsx')
-ageinGender.to_excel('Verificar12.xlsx')
