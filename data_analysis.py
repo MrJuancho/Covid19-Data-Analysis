@@ -1,13 +1,19 @@
 import numpy as np
 import pandas as pd 
+import matplotlib.patches as mpatches
 import matplotlib.pyplot as plt
 import re
-import datetime
+import geopandas as gpd
 
+#Creamos el DataFrame
+
+#Leemos el Excel por parte de la libreria Openpyxl
 archive = pd.ExcelFile('RED-NEGATIVA-COVID-02_VIGILANCIA-HOSPITALARIA 11.01.21.xlsx')
-#df1 = pd.read_excel(archive,"RED NEGATIVA",usecols = "B:N",skiprows =range(0,7))
+
+#Creamos el DataFrame por medio de la lectura del Excel
 df2 = pd.read_excel(archive,"SEGUIMIENTO DE CASOS COVID 19",usecols="A:T",skiprows=range(0,13))
 
+#Organizamos los datos por medio de la funcion Iloc para manejar columnas y filas en nuestro DF
 DFCasos = pd.DataFrame({'Sexo':df2.iloc[:,2],
                         'Edad':df2.iloc[:,3],
                         'Residencia':df2.iloc[:,4],
@@ -21,8 +27,11 @@ DFCasos = pd.DataFrame({'Sexo':df2.iloc[:,2],
 
 #Remplazar datos erroneos en el DataFrame
 
+#Rellenamos Vacios
 DFCasos['Fecha Result'] = DFCasos['Fecha Result'].fillna('01/01/2000  12:00:00 a. m.')
 
+#Remplazamos Datos por medio de funciones regulares REGEX
+#    Estas funciones nos indican que debemos tomar ciertos valores que contengan una serie de caracteres para poder hacer un remplazo de datos
 DFCasos['Pais Procedente'] = DFCasos['Pais Procedente'].fillna('MÉXICO')
 DFCasos['Pais Procedente'] = DFCasos['Pais Procedente'].replace(regex=[r'^MEX.*', r'^MÉX.*'], value='MÉXICO')
 
@@ -96,21 +105,19 @@ dateinResult = DFCasos['Resultado'].str.findall(r'(^.*[A-Z].$)')
 DFCasos['Fecha Result'], DFCasos['Resultado'] = np.where(dateinResult.isnull() ,[DFCasos['Resultado'],DFCasos['Fecha Result']],[DFCasos['Fecha Result'],DFCasos['Resultado']])
 
 #Segunda normalizacion de datos
-
 DFCasos['Fecha Result'] = DFCasos['Fecha Result'].replace(regex=[r'(^.*P.*$)',r'(^.*NE.*$)'], value='PENDIENTE')
-DFCasos['Resultado'] = np.where(DFCasos['Resultado'].isin(['POSITIVO','NEGATIVO','SOSPECHOSO']),DFCasos['Resultado'],'SOSPECHOSO')
-#Si necesitamos cambiar casos en los que no se parezca a ciertos datos aplicacmos 'np.where(DFCasos['Resultado'].isin(['POSITIVO','NEGATIVO','SOSPECHOSO']),DFCasos['Resultado'],'SOSPECHOSO')'
 
+DFCasos['Resultado'] = np.where(DFCasos['Resultado'].isin(['POSITIVO','NEGATIVO','SOSPECHOSO']),DFCasos['Resultado'],'SOSPECHOSO')
+#Si necesitamos cambiar casos en los que no se parezca a ciertos datos aplicamos
+#  'np.where(DFCasos['Resultado'].isin(['POSITIVO','NEGATIVO','SOSPECHOSO']),DFCasos['Resultado'],'SOSPECHOSO')'
 DFCasos['Edad'] = DFCasos['Edad'].fillna('SIN DATO')
 DFCasos['Edad'] = DFCasos['Edad'].replace(regex=[r'(^.*RN.*$)',r'(^.*D.*$)',r'(^.*ME.*$)',r'(^.*d.*$)',r'(^.*m.*$)'], value=0)
-
 
 DFCasos['Sexo'] = DFCasos['Sexo'].fillna('SIN DATO')
 DFCasos['Sexo'] = DFCasos['Sexo'].replace(regex=[r'(^.*F.*$)'], value='F')
 DFCasos['Sexo'] = DFCasos['Sexo'].replace(regex=[r'(^.*M.*$)',r'(^.*H.*$)',r'(^.*N.*$)'], value='M')
 DFCasos['Sexo'] = DFCasos['Sexo'].replace(regex=[r'(^.*RN.*$)',r'(^.*D.*$)'], value= 0)
 DFCasos['Sexo'] = DFCasos['Sexo'].replace(regex=[r'(^.*AÑ.*$)'],value='')
-
 
 ageinGender = DFCasos['Sexo'].str.findall(r'(^.*[A-Z].*$)')
 DFCasos['Sexo'], DFCasos['Edad'] = np.where(ageinGender.isnull() ,[DFCasos['Edad'],DFCasos['Sexo']],[DFCasos['Sexo'],DFCasos['Edad']])
@@ -121,9 +128,76 @@ DFCasos['Sexo'] = DFCasos['Sexo'].replace(regex=[r'(^.*G.*$)',r'(^.*SN.*$)',r'(^
 
 DFCasos['Edad'] = DFCasos['Edad'].replace(regex=[r'(^.*M.*$)',r'(^.*H.*$)',r'(^.*N.*$)',r'(^.*,M.*$)'], value='M')
 DFCasos['Edad'] = np.where(~DFCasos['Edad'].isin(['M','F','H','NIÑO']),DFCasos['Edad'],'SIN DATO')
-DFCasos['Sexo'] = np.where(DFCasos['Sexo'].isin(['M','F','OTRO']),DFCasos['Sexo'],'SIN DATO')
+DFCasos['Sexo'] = np.where(DFCasos['Sexo'].isin(['M','F','OTRO']),DFCasos['Sexo'],'OTRO')
 
-#ageinGender = DFCasos['Sexo'].str.findall(r'(^.*[0-9].*$)')
-#DFCasos['Resultado'] = np.where(DFCasos['Resultado'].isin(['M','F','0']),DFCasos['Resultado'],'OTRO')
-
+#Exel de Verificacion de Datos
 DFCasos.to_excel('Verificar.xlsx')
+
+#Comenzamos a graficar los datos.
+
+plt.close('all')
+
+#Casos totales analizados por sexo
+Sexos = DFCasos['Sexo'].value_counts()
+Resultados = DFCasos['Resultado'].value_counts()
+Colores = ['#0A1128','#001F54','#034078','#91C4F2','#8CA0D7','#9D79BC','#A14DA0']
+
+DFCasos['Sexo'].value_counts().plot(kind='bar',figsize=(7, 6),rot=0,color=Colores)
+plt.xlabel("Genero", labelpad=14)
+plt.ylabel("Numero de Personas", labelpad=14)
+plt.title("Casos de Posible Covid por Genero",y=1.02)
+fem = mpatches.Patch(color='#0A1128', label='Femenino')
+masc = mpatches.Patch(color='#001F54', label='Masculino')
+otro = mpatches.Patch(color='#034078', label='Otro')
+plt.legend(handles=[fem,masc,otro])
+for index,data in enumerate(Sexos):
+    plt.text(x=index, y =data+1, s=f"{data}", fontdict=dict(fontsize=12),ha='center')
+
+plt.figure()
+DFCasos['Resultado'].value_counts().plot(kind='bar',figsize=(7, 6),rot=0,color=Colores)
+plt.xlabel("Casos", labelpad=14)
+plt.ylabel("Numero de Personas", labelpad=14)
+plt.title("Casos Covid-19",y=1.02)
+neg = mpatches.Patch(color='#8CA0D7', label='Negativo')
+pos = mpatches.Patch(color='#9D79BC', label='Positivo')
+sos = mpatches.Patch(color='#A14DA0', label='Sospechoso')
+plt.legend(handles=[neg,pos,sos])
+for index,data in enumerate(Resultados):
+    plt.text(x=index, y =data+1, s=f"{data}", fontdict=dict(fontsize=12),ha='center')
+
+#Mascaras de datos
+FemPos = DFCasos['Resultado'].str.contains('POSITIVO') & DFCasos['Sexo'].str.contains('F')
+FemNeg = DFCasos['Resultado'].str.contains('NEGATIVO') & DFCasos['Sexo'].str.contains('F')
+FemSos = DFCasos['Resultado'].str.contains('SOSPECHOSO') & DFCasos['Sexo'].str.contains('F')
+
+MasPos = DFCasos['Resultado'].str.contains('POSITIVO') & DFCasos['Sexo'].str.contains('M')
+MasNeg = DFCasos['Resultado'].str.contains('NEGATIVO') & DFCasos['Sexo'].str.contains('M')
+MasSos = DFCasos['Resultado'].str.contains('SOSPECHOSO') & DFCasos['Sexo'].str.contains('M')
+
+OtroPos = DFCasos['Resultado'].str.contains('POSITIVO') & DFCasos['Sexo'].str.contains('OTRO')
+OtroNeg = DFCasos['Resultado'].str.contains('NEGATIVO') & DFCasos['Sexo'].str.contains('OTRO')
+OtroSos = DFCasos['Resultado'].str.contains('SOSPECHOSO') & DFCasos['Sexo'].str.contains('OTRO')
+
+Aux0 = FemPos.value_counts()
+Aux1 = FemNeg.value_counts()
+Aux2 = FemSos.value_counts()
+NumeroCasos = [Aux0[1],Aux1[1],Aux2[1]]
+
+plt.figure()
+plt.bar('Positivos', Aux0[1], label = "Pos")
+plt.bar('Negativos', Aux1[1], label = "Neg")
+plt.bar('Sospechosos', Aux2[1], label = "Sos")
+plt.xlabel("Casos", labelpad=14)
+plt.ylabel("Numero de Personas", labelpad=14)
+plt.title("Casos en genero Femenino",y=1.02)
+for index,data in enumerate(NumeroCasos):
+    plt.text(x=index, y =data+1, s=f"{data}", fontdict=dict(fontsize=12),ha='center')
+
+plt.show()
+#plt.figure()
+#plt.plot.bar(,DFCasos['Sexo'])
+
+""" mx = gpd.read_file('mapa_mexico/')\
+        .set_index('CLAVE')\
+        .to_crs(epsg=4485)
+print(mx.head()) """
