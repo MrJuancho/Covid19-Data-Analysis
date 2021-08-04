@@ -1,2 +1,3 @@
 # Ignore all excel data
-#*.xlsx
+*.xlsx
+*.whl
