@@ -331,7 +331,6 @@ x = len(Aux2)
 if(x < 2):
     Aux2 = [Aux2[0],0]
 
-   
 NumeroCasos = [Aux0[1],Aux1[1],Aux2[1],Aux3[1]]
 
 plt.figure(figsize=(10, 10))
@@ -430,4 +429,772 @@ for index,data in enumerate(NumeroCasos):
 plt.savefig('img/Casos COVID-19 en rangos de edades.png')
 
 
+MaternalPos = ((DFCasos['Edad'] == 0) | (DFCasos['Edad'] == 1)) & (DFCasos['Resultado']=='POSITIVO')
+MaternalNeg = ((DFCasos['Edad'] == 0) | (DFCasos['Edad'] == 1)) & (DFCasos['Resultado']=='NEGATIVO')
+MaternalSos = ((DFCasos['Edad'] == 0) | (DFCasos['Edad'] == 1)) & (DFCasos['Resultado']=='SOSPECHOSO')
 
+NinosPos = ((DFCasos['Edad'] > 1) & (DFCasos['Edad'] < 12)) & (DFCasos['Resultado']=='POSITIVO')
+NinosNeg = ((DFCasos['Edad'] > 1) & (DFCasos['Edad'] < 12)) & (DFCasos['Resultado']=='NEGATIVO')
+NinosSos = ((DFCasos['Edad'] > 1) & (DFCasos['Edad'] < 12)) & (DFCasos['Resultado']=='SOSPECHOSO')
+
+AdolescentesPos = ((DFCasos['Edad'] > 11) & (DFCasos['Edad'] < 18)) & (DFCasos['Resultado']=='POSITIVO')
+AdolescentesNeg = ((DFCasos['Edad'] > 11) & (DFCasos['Edad'] < 18)) & (DFCasos['Resultado']=='NEGATIVO')
+AdolescentesSos = ((DFCasos['Edad'] > 11) & (DFCasos['Edad'] < 18)) & (DFCasos['Resultado']=='SOSPECHOSO')
+
+AdultoJovenPos = ((DFCasos['Edad'] > 17) & (DFCasos['Edad'] < 25)) & (DFCasos['Resultado']=='POSITIVO')
+AdultoJovenNeg = ((DFCasos['Edad'] > 17) & (DFCasos['Edad'] < 25)) & (DFCasos['Resultado']=='NEGATIVO')
+AdultoJovenSos = ((DFCasos['Edad'] > 17) & (DFCasos['Edad'] < 25)) & (DFCasos['Resultado']=='SOSPECHOSO')
+
+Adulto1Pos = ((DFCasos['Edad'] > 24) & (DFCasos['Edad'] < 31)) & (DFCasos['Resultado']=='POSITIVO')
+Adulto1Neg = ((DFCasos['Edad'] > 24) & (DFCasos['Edad'] < 31)) & (DFCasos['Resultado']=='NEGATIVO')
+Adulto1Sos = ((DFCasos['Edad'] > 24) & (DFCasos['Edad'] < 31)) & (DFCasos['Resultado']=='SOSPECHOSO')
+
+Adulto2Pos = ((DFCasos['Edad'] > 30) & (DFCasos['Edad'] < 36)) & (DFCasos['Resultado']=='POSITIVO')
+Adulto2Neg = ((DFCasos['Edad'] > 30) & (DFCasos['Edad'] < 36)) & (DFCasos['Resultado']=='NEGATIVO')
+Adulto2Sos = ((DFCasos['Edad'] > 30) & (DFCasos['Edad'] < 36)) & (DFCasos['Resultado']=='SOSPECHOSO')
+
+Adulto3Pos = ((DFCasos['Edad'] > 35) & (DFCasos['Edad'] < 41)) & (DFCasos['Resultado']=='POSITIVO')
+Adulto3Neg = ((DFCasos['Edad'] > 35) & (DFCasos['Edad'] < 41)) & (DFCasos['Resultado']=='NEGATIVO')
+Adulto3Sos = ((DFCasos['Edad'] > 35) & (DFCasos['Edad'] < 41)) & (DFCasos['Resultado']=='SOSPECHOSO')
+
+
+Adulto4Pos = ((DFCasos['Edad'] > 40) & (DFCasos['Edad'] < 46)) & (DFCasos['Resultado']=='POSITIVO')
+Adulto4Neg = ((DFCasos['Edad'] > 40) & (DFCasos['Edad'] < 46)) & (DFCasos['Resultado']=='NEGATIVO')
+Adulto4Sos = ((DFCasos['Edad'] > 40) & (DFCasos['Edad'] < 46)) & (DFCasos['Resultado']=='SOSPECHOSO')
+
+
+Adulto5Pos = ((DFCasos['Edad'] > 45) & (DFCasos['Edad'] < 51)) & (DFCasos['Resultado']=='POSITIVO')
+Adulto5Neg = ((DFCasos['Edad'] > 45) & (DFCasos['Edad'] < 51)) & (DFCasos['Resultado']=='NEGATIVO')
+Adulto5Sos = ((DFCasos['Edad'] > 45) & (DFCasos['Edad'] < 51)) & (DFCasos['Resultado']=='SOSPECHOSO')
+
+Adulto6Pos = ((DFCasos['Edad'] > 50) & (DFCasos['Edad'] < 56)) & (DFCasos['Resultado']=='POSITIVO')
+Adulto6Neg = ((DFCasos['Edad'] > 50) & (DFCasos['Edad'] < 56)) & (DFCasos['Resultado']=='NEGATIVO')
+Adulto6Sos = ((DFCasos['Edad'] > 50) & (DFCasos['Edad'] < 56)) & (DFCasos['Resultado']=='SOSPECHOSO')
+
+Adulto7Pos = ((DFCasos['Edad'] > 55) & (DFCasos['Edad'] < 61)) & (DFCasos['Resultado']=='POSITIVO')
+Adulto7Neg = ((DFCasos['Edad'] > 55) & (DFCasos['Edad'] < 61)) & (DFCasos['Resultado']=='NEGATIVO')
+Adulto7Sos = ((DFCasos['Edad'] > 55) & (DFCasos['Edad'] < 61)) & (DFCasos['Resultado']=='SOSPECHOSO')
+
+Adulto8Pos = ((DFCasos['Edad'] > 60) & (DFCasos['Edad'] < 66)) & (DFCasos['Resultado']=='POSITIVO')
+Adulto8Neg = ((DFCasos['Edad'] > 60) & (DFCasos['Edad'] < 66)) & (DFCasos['Resultado']=='NEGATIVO')
+Adulto8Sos = ((DFCasos['Edad'] > 60) & (DFCasos['Edad'] < 66)) & (DFCasos['Resultado']=='SOSPECHOSO')
+
+AncianosPos = ((DFCasos['Edad'] > 65)) & (DFCasos['Resultado']=='POSITIVO')
+AncianosNeg = ((DFCasos['Edad'] > 65)) & (DFCasos['Resultado']=='NEGATIVO')
+AncianosSos = ((DFCasos['Edad'] > 65)) & (DFCasos['Resultado']=='SOSPECHOSO')
+
+NODATAPos = ((DFCasos['Edad'] == -1)) & (DFCasos['Resultado']=='POSITIVO')
+NODATANeg = ((DFCasos['Edad'] == -1)) & (DFCasos['Resultado']=='NEGATIVO')
+NODATASos = ((DFCasos['Edad'] == -1)) & (DFCasos['Resultado']=='SOSPECHOSO')
+
+
+Aux0 = MaternalPos.value_counts()
+Aux1 = MaternalNeg.value_counts()
+Aux2 = MaternalSos.value_counts()
+NumeroCasos = [Aux0[1],Aux1[1],Aux2[1]]
+
+plt.figure(figsize=(10, 10))
+plt.bar('Positivos', Aux0[1], label = "Pos",color=Colores[0])
+plt.bar('Negativos', Aux1[1], label = "Neg",color=Colores[1])
+plt.bar('Sospechosos', Aux2[1], label = "Sos",color=Colores[2])
+plt.xlabel("Casos", labelpad=14)
+plt.ylabel("Numero de Personas", labelpad=14)
+plt.title("Casos en personas de 0-1 años")
+pos = mpatches.Patch(color=Colores[0], label='Positivos')
+neg = mpatches.Patch(color=Colores[1], label='Negativos')
+sos = mpatches.Patch(color=Colores[2], label='Sospechosos')
+plt.legend(handles=[pos,neg,sos])
+for index,data in enumerate(NumeroCasos):
+    plt.text(x=index, y =data+0.125, s=f"{data}", fontdict=dict(fontsize=12),ha='center')
+plt.savefig('img/Casos en personas de 0-1 años.png')
+
+Aux0 = NinosPos.value_counts()
+Aux1 = NinosNeg.value_counts()
+Aux2 = NinosSos.value_counts()
+NumeroCasos = [Aux0[1],Aux1[1],Aux2[1]]
+
+plt.figure(figsize=(10, 10))
+plt.bar('Positivos', Aux0[1], label = "Pos",color=Colores[0])
+plt.bar('Negativos', Aux1[1], label = "Neg",color=Colores[1])
+plt.bar('Sospechosos', Aux2[1], label = "Sos",color=Colores[2])
+plt.xlabel("Casos", labelpad=14)
+plt.ylabel("Numero de Personas", labelpad=14)
+plt.title("Casos en personas de 2-11 años")
+pos = mpatches.Patch(color=Colores[0], label='Positivos')
+neg = mpatches.Patch(color=Colores[1], label='Negativos')
+sos = mpatches.Patch(color=Colores[2], label='Sospechosos')
+plt.legend(handles=[pos,neg,sos])
+for index,data in enumerate(NumeroCasos):
+    plt.text(x=index, y =data+0.125, s=f"{data}", fontdict=dict(fontsize=12),ha='center')
+plt.savefig('img/Casos en personas de 2-11 años.png')
+
+Aux0 = AdolescentesPos.value_counts()
+Aux1 = AdolescentesNeg.value_counts()
+Aux2 = AdolescentesSos.value_counts()
+NumeroCasos = [Aux0[1],Aux1[1],Aux2[1]]
+
+plt.figure(figsize=(10, 10))
+plt.bar('Positivos', Aux0[1], label = "Pos",color=Colores[0])
+plt.bar('Negativos', Aux1[1], label = "Neg",color=Colores[1])
+plt.bar('Sospechosos', Aux2[1], label = "Sos",color=Colores[2])
+plt.xlabel("Casos", labelpad=14)
+plt.ylabel("Numero de Personas", labelpad=14)
+plt.title("Casos en personas de 12-17 años")
+pos = mpatches.Patch(color=Colores[0], label='Positivos')
+neg = mpatches.Patch(color=Colores[1], label='Negativos')
+sos = mpatches.Patch(color=Colores[2], label='Sospechosos')
+plt.legend(handles=[pos,neg,sos])
+for index,data in enumerate(NumeroCasos):
+    plt.text(x=index, y =data+0.125, s=f"{data}", fontdict=dict(fontsize=12),ha='center')
+plt.savefig('img/Casos en personas de 12-17 años.png')
+
+Aux0 = AdultoJovenPos.value_counts()
+Aux1 = AdultoJovenNeg.value_counts()
+Aux2 = AdultoJovenSos.value_counts()
+NumeroCasos = [Aux0[1],Aux1[1],Aux2[1]]
+
+plt.figure(figsize=(10, 10))
+plt.bar('Positivos', Aux0[1], label = "Pos",color=Colores[0])
+plt.bar('Negativos', Aux1[1], label = "Neg",color=Colores[1])
+plt.bar('Sospechosos', Aux2[1], label = "Sos",color=Colores[2])
+plt.xlabel("Casos", labelpad=14)
+plt.ylabel("Numero de Personas", labelpad=14)
+plt.title("Casos en personas de 18-24 años")
+pos = mpatches.Patch(color=Colores[0], label='Positivos')
+neg = mpatches.Patch(color=Colores[1], label='Negativos')
+sos = mpatches.Patch(color=Colores[2], label='Sospechosos')
+plt.legend(handles=[pos,neg,sos])
+for index,data in enumerate(NumeroCasos):
+    plt.text(x=index, y =data+0.125, s=f"{data}", fontdict=dict(fontsize=12),ha='center')
+plt.savefig('img/Casos en personas de 18-24 años.png')
+
+Aux0 = Adulto1Pos.value_counts()
+Aux1 = Adulto1Neg.value_counts()
+Aux2 = Adulto1Sos.value_counts()
+NumeroCasos = [Aux0[1],Aux1[1],Aux2[1]]
+
+plt.figure(figsize=(10, 10))
+plt.bar('Positivos', Aux0[1], label = "Pos",color=Colores[0])
+plt.bar('Negativos', Aux1[1], label = "Neg",color=Colores[1])
+plt.bar('Sospechosos', Aux2[1], label = "Sos",color=Colores[2])
+plt.xlabel("Casos", labelpad=14)
+plt.ylabel("Numero de Personas", labelpad=14)
+plt.title("Casos en personas de 25-30 años")
+pos = mpatches.Patch(color=Colores[0], label='Positivos')
+neg = mpatches.Patch(color=Colores[1], label='Negativos')
+sos = mpatches.Patch(color=Colores[2], label='Sospechosos')
+plt.legend(handles=[pos,neg,sos])
+for index,data in enumerate(NumeroCasos):
+    plt.text(x=index, y =data+0.125, s=f"{data}", fontdict=dict(fontsize=12),ha='center')
+plt.savefig('img/Casos en personas de 25-30 años.png')
+
+Aux0 = Adulto2Pos.value_counts()
+Aux1 = Adulto2Neg.value_counts()
+Aux2 = Adulto2Sos.value_counts()
+NumeroCasos = [Aux0[1],Aux1[1],Aux2[1]]
+
+plt.figure(figsize=(10, 10))
+plt.bar('Positivos', Aux0[1], label = "Pos",color=Colores[0])
+plt.bar('Negativos', Aux1[1], label = "Neg",color=Colores[1])
+plt.bar('Sospechosos', Aux2[1], label = "Sos",color=Colores[2])
+plt.xlabel("Casos", labelpad=14)
+plt.ylabel("Numero de Personas", labelpad=14)
+plt.title("Casos en personas de 31-35 años")
+pos = mpatches.Patch(color=Colores[0], label='Positivos')
+neg = mpatches.Patch(color=Colores[1], label='Negativos')
+sos = mpatches.Patch(color=Colores[2], label='Sospechosos')
+plt.legend(handles=[pos,neg,sos])
+for index,data in enumerate(NumeroCasos):
+    plt.text(x=index, y =data+0.125, s=f"{data}", fontdict=dict(fontsize=12),ha='center')
+plt.savefig('img/Casos en personas de 31-35 años.png')
+
+Aux0 = Adulto3Pos.value_counts()
+Aux1 = Adulto3Neg.value_counts()
+Aux2 = Adulto4Sos.value_counts()
+NumeroCasos = [Aux0[1],Aux1[1],Aux2[1]]
+
+plt.figure(figsize=(10, 10))
+plt.bar('Positivos', Aux0[1], label = "Pos",color=Colores[0])
+plt.bar('Negativos', Aux1[1], label = "Neg",color=Colores[1])
+plt.bar('Sospechosos', Aux2[1], label = "Sos",color=Colores[2])
+plt.xlabel("Casos", labelpad=14)
+plt.ylabel("Numero de Personas", labelpad=14)
+plt.title("Casos en personas de 36-40 años")
+pos = mpatches.Patch(color=Colores[0], label='Positivos')
+neg = mpatches.Patch(color=Colores[1], label='Negativos')
+sos = mpatches.Patch(color=Colores[2], label='Sospechosos')
+plt.legend(handles=[pos,neg,sos])
+for index,data in enumerate(NumeroCasos):
+    plt.text(x=index, y =data+0.125, s=f"{data}", fontdict=dict(fontsize=12),ha='center')
+plt.savefig('img/Casos en personas de 36-40 años.png')
+
+Aux0 = Adulto4Pos.value_counts()
+Aux1 = Adulto4Neg.value_counts()
+Aux2 = Adulto4Sos.value_counts()
+NumeroCasos = [Aux0[1],Aux1[1],Aux2[1]]
+
+plt.figure(figsize=(10, 10))
+plt.bar('Positivos', Aux0[1], label = "Pos",color=Colores[0])
+plt.bar('Negativos', Aux1[1], label = "Neg",color=Colores[1])
+plt.bar('Sospechosos', Aux2[1], label = "Sos",color=Colores[2])
+plt.xlabel("Casos", labelpad=14)
+plt.ylabel("Numero de Personas", labelpad=14)
+plt.title("Casos en personas de 41-45 años")
+pos = mpatches.Patch(color=Colores[0], label='Positivos')
+neg = mpatches.Patch(color=Colores[1], label='Negativos')
+sos = mpatches.Patch(color=Colores[2], label='Sospechosos')
+plt.legend(handles=[pos,neg,sos])
+for index,data in enumerate(NumeroCasos):
+    plt.text(x=index, y =data+0.125, s=f"{data}", fontdict=dict(fontsize=12),ha='center')
+plt.savefig('img/Casos en personas de 41-45 años.png')
+
+Aux0 = Adulto5Pos.value_counts()
+Aux1 = Adulto5Neg.value_counts()
+Aux2 = Adulto5Sos.value_counts()
+NumeroCasos = [Aux0[1],Aux1[1],Aux2[1]]
+
+plt.figure(figsize=(10, 10))
+plt.bar('Positivos', Aux0[1], label = "Pos",color=Colores[0])
+plt.bar('Negativos', Aux1[1], label = "Neg",color=Colores[1])
+plt.bar('Sospechosos', Aux2[1], label = "Sos",color=Colores[2])
+plt.xlabel("Casos", labelpad=14)
+plt.ylabel("Numero de Personas", labelpad=14)
+plt.title("Casos en personas de 46-50 años")
+pos = mpatches.Patch(color=Colores[0], label='Positivos')
+neg = mpatches.Patch(color=Colores[1], label='Negativos')
+sos = mpatches.Patch(color=Colores[2], label='Sospechosos')
+plt.legend(handles=[pos,neg,sos])
+for index,data in enumerate(NumeroCasos):
+    plt.text(x=index, y =data+0.125, s=f"{data}", fontdict=dict(fontsize=12),ha='center')
+plt.savefig('img/Casos en personas de 46-50 años.png')
+
+Aux0 = Adulto6Pos.value_counts()
+Aux1 = Adulto6Neg.value_counts()
+Aux2 = Adulto6Sos.value_counts()
+NumeroCasos = [Aux0[1],Aux1[1],Aux2[1]]
+
+plt.figure(figsize=(10, 10))
+plt.bar('Positivos', Aux0[1], label = "Pos",color=Colores[0])
+plt.bar('Negativos', Aux1[1], label = "Neg",color=Colores[1])
+plt.bar('Sospechosos', Aux2[1], label = "Sos",color=Colores[2])
+plt.xlabel("Casos", labelpad=14)
+plt.ylabel("Numero de Personas", labelpad=14)
+plt.title("Casos en personas de 51-55 años")
+pos = mpatches.Patch(color=Colores[0], label='Positivos')
+neg = mpatches.Patch(color=Colores[1], label='Negativos')
+sos = mpatches.Patch(color=Colores[2], label='Sospechosos')
+plt.legend(handles=[pos,neg,sos])
+for index,data in enumerate(NumeroCasos):
+    plt.text(x=index, y =data+0.125, s=f"{data}", fontdict=dict(fontsize=12),ha='center')
+plt.savefig('img/Casos en personas de 51-55 años.png')
+
+Aux0 = Adulto7Pos.value_counts()
+Aux1 = Adulto7Neg.value_counts()
+Aux2 = Adulto7Sos.value_counts()
+NumeroCasos = [Aux0[1],Aux1[1],Aux2[1]]
+
+plt.figure(figsize=(10, 10))
+plt.bar('Positivos', Aux0[1], label = "Pos",color=Colores[0])
+plt.bar('Negativos', Aux1[1], label = "Neg",color=Colores[1])
+plt.bar('Sospechosos', Aux2[1], label = "Sos",color=Colores[2])
+plt.xlabel("Casos", labelpad=14)
+plt.ylabel("Numero de Personas", labelpad=14)
+plt.title("Casos en personas de 56-60 años")
+pos = mpatches.Patch(color=Colores[0], label='Positivos')
+neg = mpatches.Patch(color=Colores[1], label='Negativos')
+sos = mpatches.Patch(color=Colores[2], label='Sospechosos')
+plt.legend(handles=[pos,neg,sos])
+for index,data in enumerate(NumeroCasos):
+    plt.text(x=index, y =data+0.125, s=f"{data}", fontdict=dict(fontsize=12),ha='center')
+plt.savefig('img/Casos en personas de 56-60 años.png')
+
+Aux0 = Adulto8Pos.value_counts()
+Aux1 = Adulto8Neg.value_counts()
+Aux2 = Adulto8Sos.value_counts()
+NumeroCasos = [Aux0[1],Aux1[1],Aux2[1]]
+
+plt.figure(figsize=(10, 10))
+plt.bar('Positivos', Aux0[1], label = "Pos",color=Colores[0])
+plt.bar('Negativos', Aux1[1], label = "Neg",color=Colores[1])
+plt.bar('Sospechosos', Aux2[1], label = "Sos",color=Colores[2])
+plt.xlabel("Casos", labelpad=14)
+plt.ylabel("Numero de Personas", labelpad=14)
+plt.title("Casos en personas de 61-65 años")
+pos = mpatches.Patch(color=Colores[0], label='Positivos')
+neg = mpatches.Patch(color=Colores[1], label='Negativos')
+sos = mpatches.Patch(color=Colores[2], label='Sospechosos')
+plt.legend(handles=[pos,neg,sos])
+for index,data in enumerate(NumeroCasos):
+    plt.text(x=index, y =data+0.125, s=f"{data}", fontdict=dict(fontsize=12),ha='center')
+plt.savefig('img/Casos en personas de 61-65 años.png')
+
+Aux0 = AncianosPos.value_counts()
+Aux1 = AncianosNeg.value_counts()
+Aux2 = AncianosSos.value_counts()
+NumeroCasos = [Aux0[1],Aux1[1],Aux2[1]]
+
+plt.figure(figsize=(10, 10))
+plt.bar('Positivos', Aux0[1], label = "Pos",color=Colores[0])
+plt.bar('Negativos', Aux1[1], label = "Neg",color=Colores[1])
+plt.bar('Sospechosos', Aux2[1], label = "Sos",color=Colores[2])
+plt.xlabel("Casos", labelpad=14)
+plt.ylabel("Numero de Personas", labelpad=14)
+plt.title("Casos en personas de 66 o mas años")
+pos = mpatches.Patch(color=Colores[0], label='Positivos')
+neg = mpatches.Patch(color=Colores[1], label='Negativos')
+sos = mpatches.Patch(color=Colores[2], label='Sospechosos')
+plt.legend(handles=[pos,neg,sos])
+for index,data in enumerate(NumeroCasos):
+    plt.text(x=index, y =data+0.125, s=f"{data}", fontdict=dict(fontsize=12),ha='center')
+plt.savefig('img/Casos en personas de 66 o mas años.png')
+
+Aux0 = NODATAPos.value_counts()
+Aux1 = NODATANeg.value_counts()
+Aux2 = NODATASos.value_counts()
+NumeroCasos = [Aux0[1],Aux1[1],Aux2[1]]
+
+plt.figure(figsize=(10, 10))
+plt.bar('Positivos', Aux0[1], label = "Pos",color=Colores[0])
+plt.bar('Negativos', Aux1[1], label = "Neg",color=Colores[1])
+plt.bar('Sospechosos', Aux2[1], label = "Sos",color=Colores[2])
+plt.xlabel("Casos", labelpad=14)
+plt.ylabel("Numero de Personas", labelpad=14)
+plt.title("Casos en personas sin datos de Edad")
+pos = mpatches.Patch(color=Colores[0], label='Positivos')
+neg = mpatches.Patch(color=Colores[1], label='Negativos')
+sos = mpatches.Patch(color=Colores[2], label='Sospechosos')
+plt.legend(handles=[pos,neg,sos])
+for index,data in enumerate(NumeroCasos):
+    plt.text(x=index, y =data+0.125, s=f"{data}", fontdict=dict(fontsize=12),ha='center')
+plt.savefig('img/Casos en personas sin datos de Edad.png')
+
+MaternalAmb = ((DFCasos['Edad'] == 0) | (DFCasos['Edad'] == 1)) & (DFCasos['Estatus']=='AMBULATORIO')
+MaternalHos = ((DFCasos['Edad'] == 0) | (DFCasos['Edad'] == 1)) & (DFCasos['Estatus']=='HOSPITALIZADO')
+MaternalDef = ((DFCasos['Edad'] == 0) | (DFCasos['Edad'] == 1)) & (DFCasos['Estatus']=='DEFUNCION')
+MaternalAlt = ((DFCasos['Edad'] == 0) | (DFCasos['Edad'] == 1)) & (DFCasos['Estatus']=='ALTA')
+
+NinosAmb = ((DFCasos['Edad'] > 1) & (DFCasos['Edad'] < 12)) & (DFCasos['Estatus']=='AMBULATORIO')
+NinosHos = ((DFCasos['Edad'] > 1) & (DFCasos['Edad'] < 12)) & (DFCasos['Estatus']=='HOSPITALIZADO')
+NinosDef = ((DFCasos['Edad'] > 1) & (DFCasos['Edad'] < 12)) & (DFCasos['Estatus']=='DEFUNCION')
+NinosAlt = ((DFCasos['Edad'] > 1) & (DFCasos['Edad'] < 12)) & (DFCasos['Estatus']=='ALTA')
+
+AdolescentesAmb = ((DFCasos['Edad'] > 11) & (DFCasos['Edad'] < 18)) & (DFCasos['Estatus']=='AMBULATORIO')
+AdolescentesHos = ((DFCasos['Edad'] > 11) & (DFCasos['Edad'] < 18)) & (DFCasos['Estatus']=='HOSPITALIZADO')
+AdolescentesDef = ((DFCasos['Edad'] > 11) & (DFCasos['Edad'] < 18)) & (DFCasos['Estatus']=='DEFUNCION')
+AdolescentesAlt = ((DFCasos['Edad'] > 11) & (DFCasos['Edad'] < 18)) & (DFCasos['Estatus']=='ALTA')
+
+AdultoJovenAmb = ((DFCasos['Edad'] > 17) & (DFCasos['Edad'] < 25)) & (DFCasos['Estatus']=='AMBULATORIO')
+AdultoJovenHos = ((DFCasos['Edad'] > 17) & (DFCasos['Edad'] < 25)) & (DFCasos['Estatus']=='HOSPITALIZADO')
+AdultoJovenDef = ((DFCasos['Edad'] > 17) & (DFCasos['Edad'] < 25)) & (DFCasos['Estatus']=='DEFUNCION')
+AdultoJovenAlt = ((DFCasos['Edad'] > 17) & (DFCasos['Edad'] < 25)) & (DFCasos['Estatus']=='ALTA')
+
+Adulto1Amb = ((DFCasos['Edad'] > 24) & (DFCasos['Edad'] < 31)) & (DFCasos['Estatus']=='AMBULATORIO')
+Adulto1Hos = ((DFCasos['Edad'] > 24) & (DFCasos['Edad'] < 31)) & (DFCasos['Estatus']=='HOSPITALIZADO')
+Adulto1Def = ((DFCasos['Edad'] > 24) & (DFCasos['Edad'] < 31)) & (DFCasos['Estatus']=='DEFUNCION')
+Adulto1Alt = ((DFCasos['Edad'] > 24) & (DFCasos['Edad'] < 31)) & (DFCasos['Estatus']=='ALTA')
+
+Adulto2Amb = ((DFCasos['Edad'] > 30) & (DFCasos['Edad'] < 36)) & (DFCasos['Estatus']=='AMBULATORIO')
+Adulto2Hos = ((DFCasos['Edad'] > 30) & (DFCasos['Edad'] < 36)) & (DFCasos['Estatus']=='HOSPITALIZADO')
+Adulto2Def = ((DFCasos['Edad'] > 30) & (DFCasos['Edad'] < 36)) & (DFCasos['Estatus']=='DEFUNCION')
+Adulto2Alt = ((DFCasos['Edad'] > 30) & (DFCasos['Edad'] < 36)) & (DFCasos['Estatus']=='ALTA')
+
+Adulto3Amb = ((DFCasos['Edad'] > 35) & (DFCasos['Edad'] < 41)) & (DFCasos['Estatus']=='AMBULATORIO')
+Adulto3Hos = ((DFCasos['Edad'] > 35) & (DFCasos['Edad'] < 41)) & (DFCasos['Estatus']=='HOSPITALIZADO')
+Adulto3Def = ((DFCasos['Edad'] > 35) & (DFCasos['Edad'] < 41)) & (DFCasos['Estatus']=='DEFUNCION')
+Adulto3Alt = ((DFCasos['Edad'] > 35) & (DFCasos['Edad'] < 41)) & (DFCasos['Estatus']=='ALTA')
+
+Adulto4Amb = ((DFCasos['Edad'] > 40) & (DFCasos['Edad'] < 46)) & (DFCasos['Estatus']=='AMBULATORIO')
+Adulto4Hos = ((DFCasos['Edad'] > 40) & (DFCasos['Edad'] < 46)) & (DFCasos['Estatus']=='HOSPITALIZADO')
+Adulto4Def = ((DFCasos['Edad'] > 40) & (DFCasos['Edad'] < 46)) & (DFCasos['Estatus']=='DEFUNCION')
+Adulto4Alt = ((DFCasos['Edad'] > 40) & (DFCasos['Edad'] < 46)) & (DFCasos['Estatus']=='ALTA')
+
+Adulto5Amb = ((DFCasos['Edad'] > 45) & (DFCasos['Edad'] < 51)) & (DFCasos['Estatus']=='AMBULATORIO')
+Adulto5Hos = ((DFCasos['Edad'] > 45) & (DFCasos['Edad'] < 51)) & (DFCasos['Estatus']=='HOSPITALIZADO')
+Adulto5Def = ((DFCasos['Edad'] > 45) & (DFCasos['Edad'] < 51)) & (DFCasos['Estatus']=='DEFUNCION')
+Adulto5Alt = ((DFCasos['Edad'] > 45) & (DFCasos['Edad'] < 51)) & (DFCasos['Estatus']=='ALTA')
+
+Adulto6Amb = ((DFCasos['Edad'] > 50) & (DFCasos['Edad'] < 56)) & (DFCasos['Estatus']=='AMBULATORIO')
+Adulto6Hos = ((DFCasos['Edad'] > 50) & (DFCasos['Edad'] < 56)) & (DFCasos['Estatus']=='HOSPITALIZADO')
+Adulto6Def= ((DFCasos['Edad'] > 50) & (DFCasos['Edad'] < 56)) & (DFCasos['Estatus']=='DEFUNCION')
+Adulto6Alt = ((DFCasos['Edad'] > 50) & (DFCasos['Edad'] < 56)) & (DFCasos['Estatus']=='ALTA')
+
+Adulto7Amb = ((DFCasos['Edad'] > 55) & (DFCasos['Edad'] < 61)) & (DFCasos['Estatus']=='AMBULATORIO')
+Adulto7Hos = ((DFCasos['Edad'] > 55) & (DFCasos['Edad'] < 61)) & (DFCasos['Estatus']=='HOSPITALIZADO')
+Adulto7Def = ((DFCasos['Edad'] > 55) & (DFCasos['Edad'] < 61)) & (DFCasos['Estatus']=='DEFUNCION')
+Adulto7Alt = ((DFCasos['Edad'] > 55) & (DFCasos['Edad'] < 61)) & (DFCasos['Estatus']=='ALTA')
+
+Adulto8Amb = ((DFCasos['Edad'] > 60) & (DFCasos['Edad'] < 66)) & (DFCasos['Estatus']=='AMBULATORIO')
+Adulto8Hos = ((DFCasos['Edad'] > 60) & (DFCasos['Edad'] < 66)) & (DFCasos['Estatus']=='HOSPITALIZADO')
+Adulto8Def = ((DFCasos['Edad'] > 60) & (DFCasos['Edad'] < 66)) & (DFCasos['Estatus']=='DEFUNCION')
+Adulto8Alt = ((DFCasos['Edad'] > 60) & (DFCasos['Edad'] < 66)) & (DFCasos['Estatus']=='ALTA')
+
+AncianosAmb = ((DFCasos['Edad'] > 65)) & (DFCasos['Estatus']=='AMBULATORIO')
+AncianosHos = ((DFCasos['Edad'] > 65)) & (DFCasos['Estatus']=='HOSPITALIZADO')
+AncianosDef = ((DFCasos['Edad'] > 65)) & (DFCasos['Estatus']=='DEFUNCION')
+AncianosAlt = ((DFCasos['Edad'] > 65)) & (DFCasos['Estatus']=='ALTA')
+
+NODATAAmb = ((DFCasos['Edad'] == -1)) & (DFCasos['Estatus']=='AMBULATORIO')
+NODATAHos = ((DFCasos['Edad'] == -1)) & (DFCasos['Estatus']=='HOSPITALIZADO')
+NODATADef = ((DFCasos['Edad'] == -1)) & (DFCasos['Estatus']=='DEFUNCION')
+NODATAAlt = ((DFCasos['Edad'] == -1)) & (DFCasos['Estatus']=='ALTA')
+
+Aux0 = MaternalAmb.value_counts()
+Aux1 = MaternalHos.value_counts()
+Aux2 = MaternalDef.value_counts()
+Aux3 = MaternalAlt.value_counts()
+NumeroCasos = [Aux0[1],Aux1[1],Aux2[1],Aux3[1]]
+
+plt.figure(figsize=(10, 10))
+plt.bar('AMBULATORIO', Aux0[1], label = "Ambulatorio",color=Colores[0])
+plt.bar('HOSPITALIZADO', Aux1[1], label = "Hospitalizado",color=Colores[1])
+plt.bar('DEFUNCION', Aux2[1], label = "Defuncion",color=Colores[2])
+plt.bar('ALTA', Aux3[1], label = "Alta",color=Colores[3])
+plt.xlabel("Casos", labelpad=14)
+plt.ylabel("Numero de Personas", labelpad=14)
+plt.title("Estatus en casos de 0-1 años de edad",y=1.02)
+Amb = mpatches.Patch(color=Colores[0], label='Ambulatorio')
+Hosp = mpatches.Patch(color=Colores[1], label='Hospitalizado')
+Def = mpatches.Patch(color=Colores[2], label='Defuncion')
+Alta = mpatches.Patch(color=Colores[3], label='Alta')
+plt.legend(handles=[Amb,Hosp,Def,Alta])
+for index,data in enumerate(NumeroCasos):
+    plt.text(x=index, y =data+1, s=f"{data}", fontdict=dict(fontsize=12),ha='center')
+plt.savefig('img/Estatus en casos de 0-1 años de edad.png')
+
+Aux0 = NinosAmb.value_counts()
+Aux1 = NinosHos.value_counts()
+Aux2 = NinosDef.value_counts()
+Aux3 = NinosAlt.value_counts()
+x = len(Aux2)
+if(x < 2):
+    Aux2 = [Aux2[0],0]
+NumeroCasos = [Aux0[1],Aux1[1],Aux2[1],Aux3[1]]
+
+plt.figure(figsize=(10, 10))
+plt.bar('AMBULATORIO', Aux0[1], label = "Ambulatorio",color=Colores[0])
+plt.bar('HOSPITALIZADO', Aux1[1], label = "Hospitalizado",color=Colores[1])
+plt.bar('DEFUNCION', Aux2[1], label = "Defuncion",color=Colores[2])
+plt.bar('ALTA', Aux3[1], label = "Alta",color=Colores[3])
+plt.xlabel("Casos", labelpad=14)
+plt.ylabel("Numero de Personas", labelpad=14)
+plt.title("Estatus en casos de 2-11 años de edad",y=1.02)
+Amb = mpatches.Patch(color=Colores[0], label='Ambulatorio')
+Hosp = mpatches.Patch(color=Colores[1], label='Hospitalizado')
+Def = mpatches.Patch(color=Colores[2], label='Defuncion')
+Alta = mpatches.Patch(color=Colores[3], label='Alta')
+plt.legend(handles=[Amb,Hosp,Def,Alta])
+for index,data in enumerate(NumeroCasos):
+    plt.text(x=index, y =data+1, s=f"{data}", fontdict=dict(fontsize=12),ha='center')
+plt.savefig('img/Estatus en casos de 2-11 años de edad.png')
+
+Aux0 = AdolescentesAmb.value_counts()
+Aux1 = AdolescentesHos.value_counts()
+Aux2 = AdolescentesDef.value_counts()
+Aux3 = AdolescentesAlt.value_counts()
+x = len(Aux2)
+if(x < 2):
+    Aux2 = [Aux2[0],0]
+NumeroCasos = [Aux0[1],Aux1[1],Aux2[1],Aux3[1]]
+
+plt.figure(figsize=(10, 10))
+plt.bar('AMBULATORIO', Aux0[1], label = "Ambulatorio",color=Colores[0])
+plt.bar('HOSPITALIZADO', Aux1[1], label = "Hospitalizado",color=Colores[1])
+plt.bar('DEFUNCION', Aux2[1], label = "Defuncion",color=Colores[2])
+plt.bar('ALTA', Aux3[1], label = "Alta",color=Colores[3])
+plt.xlabel("Casos", labelpad=14)
+plt.ylabel("Numero de Personas", labelpad=14)
+plt.title("Estatus en casos de 12-17 años de edad",y=1.02)
+Amb = mpatches.Patch(color=Colores[0], label='Ambulatorio')
+Hosp = mpatches.Patch(color=Colores[1], label='Hospitalizado')
+Def = mpatches.Patch(color=Colores[2], label='Defuncion')
+Alta = mpatches.Patch(color=Colores[3], label='Alta')
+plt.legend(handles=[Amb,Hosp,Def,Alta])
+for index,data in enumerate(NumeroCasos):
+    plt.text(x=index, y =data+1, s=f"{data}", fontdict=dict(fontsize=12),ha='center')
+plt.savefig('img/Estatus en casos de 12-17 años de edad.png')
+
+Aux0 = AdultoJovenAmb.value_counts()
+Aux1 = AdultoJovenHos.value_counts()
+Aux2 = AdultoJovenDef.value_counts()
+Aux3 = AdultoJovenAlt.value_counts()
+x = len(Aux2)
+if(x < 2):
+    Aux2 = [Aux2[0],0]
+NumeroCasos = [Aux0[1],Aux1[1],Aux2[1],Aux3[1]]
+
+plt.figure(figsize=(10, 10))
+plt.bar('AMBULATORIO', Aux0[1], label = "Ambulatorio",color=Colores[0])
+plt.bar('HOSPITALIZADO', Aux1[1], label = "Hospitalizado",color=Colores[1])
+plt.bar('DEFUNCION', Aux2[1], label = "Defuncion",color=Colores[2])
+plt.bar('ALTA', Aux3[1], label = "Alta",color=Colores[3])
+plt.xlabel("Casos", labelpad=14)
+plt.ylabel("Numero de Personas", labelpad=14)
+plt.title("Estatus en casos de 18-24 años de edad",y=1.02)
+Amb = mpatches.Patch(color=Colores[0], label='Ambulatorio')
+Hosp = mpatches.Patch(color=Colores[1], label='Hospitalizado')
+Def = mpatches.Patch(color=Colores[2], label='Defuncion')
+Alta = mpatches.Patch(color=Colores[3], label='Alta')
+plt.legend(handles=[Amb,Hosp,Def,Alta])
+for index,data in enumerate(NumeroCasos):
+    plt.text(x=index, y =data+1, s=f"{data}", fontdict=dict(fontsize=12),ha='center')
+plt.savefig('img/Estatus en casos de 18-24 años de edad.png')
+
+Aux0 = Adulto1Amb.value_counts()
+Aux1 = Adulto1Hos.value_counts()
+Aux2 = Adulto1Def.value_counts()
+Aux3 = Adulto1Alt.value_counts()
+x = len(Aux2)
+if(x < 2):
+    Aux2 = [Aux2[0],0]
+NumeroCasos = [Aux0[1],Aux1[1],Aux2[1],Aux3[1]]
+
+plt.figure(figsize=(10, 10))
+plt.bar('AMBULATORIO', Aux0[1], label = "Ambulatorio",color=Colores[0])
+plt.bar('HOSPITALIZADO', Aux1[1], label = "Hospitalizado",color=Colores[1])
+plt.bar('DEFUNCION', Aux2[1], label = "Defuncion",color=Colores[2])
+plt.bar('ALTA', Aux3[1], label = "Alta",color=Colores[3])
+plt.xlabel("Casos", labelpad=14)
+plt.ylabel("Numero de Personas", labelpad=14)
+plt.title("Estatus en casos de 25-30 años de edad",y=1.02)
+Amb = mpatches.Patch(color=Colores[0], label='Ambulatorio')
+Hosp = mpatches.Patch(color=Colores[1], label='Hospitalizado')
+Def = mpatches.Patch(color=Colores[2], label='Defuncion')
+Alta = mpatches.Patch(color=Colores[3], label='Alta')
+plt.legend(handles=[Amb,Hosp,Def,Alta])
+for index,data in enumerate(NumeroCasos):
+    plt.text(x=index, y =data+1, s=f"{data}", fontdict=dict(fontsize=12),ha='center')
+plt.savefig('img/Estatus en casos de 25-30 años de edad.png')
+
+Aux0 = Adulto2Amb.value_counts()
+Aux1 = Adulto2Hos.value_counts()
+Aux2 = Adulto2Def.value_counts()
+Aux3 = Adulto2Alt.value_counts()
+x = len(Aux2)
+if(x < 2):
+    Aux2 = [Aux2[0],0]
+NumeroCasos = [Aux0[1],Aux1[1],Aux2[1],Aux3[1]]
+
+plt.figure(figsize=(10, 10))
+plt.bar('AMBULATORIO', Aux0[1], label = "Ambulatorio",color=Colores[0])
+plt.bar('HOSPITALIZADO', Aux1[1], label = "Hospitalizado",color=Colores[1])
+plt.bar('DEFUNCION', Aux2[1], label = "Defuncion",color=Colores[2])
+plt.bar('ALTA', Aux3[1], label = "Alta",color=Colores[3])
+plt.xlabel("Casos", labelpad=14)
+plt.ylabel("Numero de Personas", labelpad=14)
+plt.title("Estatus en casos de 31-35 años de edad",y=1.02)
+Amb = mpatches.Patch(color=Colores[0], label='Ambulatorio')
+Hosp = mpatches.Patch(color=Colores[1], label='Hospitalizado')
+Def = mpatches.Patch(color=Colores[2], label='Defuncion')
+Alta = mpatches.Patch(color=Colores[3], label='Alta')
+plt.legend(handles=[Amb,Hosp,Def,Alta])
+for index,data in enumerate(NumeroCasos):
+    plt.text(x=index, y =data+1, s=f"{data}", fontdict=dict(fontsize=12),ha='center')
+plt.savefig('img/Estatus en casos de 31-35 años de edad.png')
+
+Aux0 = Adulto3Amb.value_counts()
+Aux1 = Adulto3Hos.value_counts()
+Aux2 = Adulto3Def.value_counts()
+Aux3 = Adulto3Alt.value_counts()
+x = len(Aux2)
+if(x < 2):
+    Aux2 = [Aux2[0],0]
+NumeroCasos = [Aux0[1],Aux1[1],Aux2[1],Aux3[1]]
+
+plt.figure(figsize=(10, 10))
+plt.bar('AMBULATORIO', Aux0[1], label = "Ambulatorio",color=Colores[0])
+plt.bar('HOSPITALIZADO', Aux1[1], label = "Hospitalizado",color=Colores[1])
+plt.bar('DEFUNCION', Aux2[1], label = "Defuncion",color=Colores[2])
+plt.bar('ALTA', Aux3[1], label = "Alta",color=Colores[3])
+plt.xlabel("Casos", labelpad=14)
+plt.ylabel("Numero de Personas", labelpad=14)
+plt.title("Estatus en casos de 36-40 años de edad",y=1.02)
+Amb = mpatches.Patch(color=Colores[0], label='Ambulatorio')
+Hosp = mpatches.Patch(color=Colores[1], label='Hospitalizado')
+Def = mpatches.Patch(color=Colores[2], label='Defuncion')
+Alta = mpatches.Patch(color=Colores[3], label='Alta')
+plt.legend(handles=[Amb,Hosp,Def,Alta])
+for index,data in enumerate(NumeroCasos):
+    plt.text(x=index, y =data+1, s=f"{data}", fontdict=dict(fontsize=12),ha='center')
+plt.savefig('img/Estatus en casos de 36-40 años de edad.png')
+
+Aux0 = Adulto4Amb.value_counts()
+Aux1 = Adulto4Hos.value_counts()
+Aux2 = Adulto4Def.value_counts()
+Aux3 = Adulto4Alt.value_counts()
+x = len(Aux2)
+if(x < 2):
+    Aux2 = [Aux2[0],0]
+NumeroCasos = [Aux0[1],Aux1[1],Aux2[1],Aux3[1]]
+
+plt.figure(figsize=(10, 10))
+plt.bar('AMBULATORIO', Aux0[1], label = "Ambulatorio",color=Colores[0])
+plt.bar('HOSPITALIZADO', Aux1[1], label = "Hospitalizado",color=Colores[1])
+plt.bar('DEFUNCION', Aux2[1], label = "Defuncion",color=Colores[2])
+plt.bar('ALTA', Aux3[1], label = "Alta",color=Colores[3])
+plt.xlabel("Casos", labelpad=14)
+plt.ylabel("Numero de Personas", labelpad=14)
+plt.title("Estatus en casos de 41-45 años de edad",y=1.02)
+Amb = mpatches.Patch(color=Colores[0], label='Ambulatorio')
+Hosp = mpatches.Patch(color=Colores[1], label='Hospitalizado')
+Def = mpatches.Patch(color=Colores[2], label='Defuncion')
+Alta = mpatches.Patch(color=Colores[3], label='Alta')
+plt.legend(handles=[Amb,Hosp,Def,Alta])
+for index,data in enumerate(NumeroCasos):
+    plt.text(x=index, y =data+1, s=f"{data}", fontdict=dict(fontsize=12),ha='center')
+plt.savefig('img/Estatus en casos de 41-45 años de edad.png')
+
+Aux0 = Adulto5Amb.value_counts()
+Aux1 = Adulto5Hos.value_counts()
+Aux2 = Adulto5Def.value_counts()
+Aux3 = Adulto5Alt.value_counts()
+x = len(Aux2)
+if(x < 2):
+    Aux2 = [Aux2[0],0]
+NumeroCasos = [Aux0[1],Aux1[1],Aux2[1],Aux3[1]]
+
+plt.figure(figsize=(10, 10))
+plt.bar('AMBULATORIO', Aux0[1], label = "Ambulatorio",color=Colores[0])
+plt.bar('HOSPITALIZADO', Aux1[1], label = "Hospitalizado",color=Colores[1])
+plt.bar('DEFUNCION', Aux2[1], label = "Defuncion",color=Colores[2])
+plt.bar('ALTA', Aux3[1], label = "Alta",color=Colores[3])
+plt.xlabel("Casos", labelpad=14)
+plt.ylabel("Numero de Personas", labelpad=14)
+plt.title("Estatus en casos de 46-50 años de edad",y=1.02)
+Amb = mpatches.Patch(color=Colores[0], label='Ambulatorio')
+Hosp = mpatches.Patch(color=Colores[1], label='Hospitalizado')
+Def = mpatches.Patch(color=Colores[2], label='Defuncion')
+Alta = mpatches.Patch(color=Colores[3], label='Alta')
+plt.legend(handles=[Amb,Hosp,Def,Alta])
+for index,data in enumerate(NumeroCasos):
+    plt.text(x=index, y =data+1, s=f"{data}", fontdict=dict(fontsize=12),ha='center')
+plt.savefig('img/Estatus en casos de 46-50 años de edad.png')
+
+Aux0 = Adulto6Amb.value_counts()
+Aux1 = Adulto6Hos.value_counts()
+Aux2 = Adulto6Def.value_counts()
+Aux3 = Adulto6Alt.value_counts()
+x = len(Aux2)
+if(x < 2):
+    Aux2 = [Aux2[0],0]
+NumeroCasos = [Aux0[1],Aux1[1],Aux2[1],Aux3[1]]
+
+plt.figure(figsize=(10, 10))
+plt.bar('AMBULATORIO', Aux0[1], label = "Ambulatorio",color=Colores[0])
+plt.bar('HOSPITALIZADO', Aux1[1], label = "Hospitalizado",color=Colores[1])
+plt.bar('DEFUNCION', Aux2[1], label = "Defuncion",color=Colores[2])
+plt.bar('ALTA', Aux3[1], label = "Alta",color=Colores[3])
+plt.xlabel("Casos", labelpad=14)
+plt.ylabel("Numero de Personas", labelpad=14)
+plt.title("Estatus en casos de 51-55 años de edad",y=1.02)
+Amb = mpatches.Patch(color=Colores[0], label='Ambulatorio')
+Hosp = mpatches.Patch(color=Colores[1], label='Hospitalizado')
+Def = mpatches.Patch(color=Colores[2], label='Defuncion')
+Alta = mpatches.Patch(color=Colores[3], label='Alta')
+plt.legend(handles=[Amb,Hosp,Def,Alta])
+for index,data in enumerate(NumeroCasos):
+    plt.text(x=index, y =data+1, s=f"{data}", fontdict=dict(fontsize=12),ha='center')
+plt.savefig('img/Estatus en casos de 51-55 años de edad.png')
+
+Aux0 = Adulto7Amb.value_counts()
+Aux1 = Adulto7Hos.value_counts()
+Aux2 = Adulto7Def.value_counts()
+Aux3 = Adulto7Alt.value_counts()
+x = len(Aux2)
+if(x < 2):
+    Aux2 = [Aux2[0],0]
+NumeroCasos = [Aux0[1],Aux1[1],Aux2[1],Aux3[1]]
+
+plt.figure(figsize=(10, 10))
+plt.bar('AMBULATORIO', Aux0[1], label = "Ambulatorio",color=Colores[0])
+plt.bar('HOSPITALIZADO', Aux1[1], label = "Hospitalizado",color=Colores[1])
+plt.bar('DEFUNCION', Aux2[1], label = "Defuncion",color=Colores[2])
+plt.bar('ALTA', Aux3[1], label = "Alta",color=Colores[3])
+plt.xlabel("Casos", labelpad=14)
+plt.ylabel("Numero de Personas", labelpad=14)
+plt.title("Estatus en casos de 56-60 años de edad",y=1.02)
+Amb = mpatches.Patch(color=Colores[0], label='Ambulatorio')
+Hosp = mpatches.Patch(color=Colores[1], label='Hospitalizado')
+Def = mpatches.Patch(color=Colores[2], label='Defuncion')
+Alta = mpatches.Patch(color=Colores[3], label='Alta')
+plt.legend(handles=[Amb,Hosp,Def,Alta])
+for index,data in enumerate(NumeroCasos):
+    plt.text(x=index, y =data+1, s=f"{data}", fontdict=dict(fontsize=12),ha='center')
+plt.savefig('img/Estatus en casos de 56-60 años de edad.png')
+
+Aux0 = Adulto8Amb.value_counts()
+Aux1 = Adulto8Hos.value_counts()
+Aux2 = Adulto8Def.value_counts()
+Aux3 = Adulto8Alt.value_counts()
+x = len(Aux2)
+if(x < 2):
+    Aux2 = [Aux2[0],0]
+NumeroCasos = [Aux0[1],Aux1[1],Aux2[1],Aux3[1]]
+
+plt.figure(figsize=(10, 10))
+plt.bar('AMBULATORIO', Aux0[1], label = "Ambulatorio",color=Colores[0])
+plt.bar('HOSPITALIZADO', Aux1[1], label = "Hospitalizado",color=Colores[1])
+plt.bar('DEFUNCION', Aux2[1], label = "Defuncion",color=Colores[2])
+plt.bar('ALTA', Aux3[1], label = "Alta",color=Colores[3])
+plt.xlabel("Casos", labelpad=14)
+plt.ylabel("Numero de Personas", labelpad=14)
+plt.title("Estatus en casos de 61-65 años de edad",y=1.02)
+Amb = mpatches.Patch(color=Colores[0], label='Ambulatorio')
+Hosp = mpatches.Patch(color=Colores[1], label='Hospitalizado')
+Def = mpatches.Patch(color=Colores[2], label='Defuncion')
+Alta = mpatches.Patch(color=Colores[3], label='Alta')
+plt.legend(handles=[Amb,Hosp,Def,Alta])
+for index,data in enumerate(NumeroCasos):
+    plt.text(x=index, y =data+1, s=f"{data}", fontdict=dict(fontsize=12),ha='center')
+plt.savefig('img/Estatus en casos de 61-65 años de edad.png')
+
+Aux0 = AncianosAmb.value_counts()
+Aux1 = AncianosHos.value_counts()
+Aux2 = AncianosDef.value_counts()
+Aux3 = AncianosAlt.value_counts()
+x = len(Aux2)
+if(x < 2):
+    Aux2 = [Aux2[0],0]
+NumeroCasos = [Aux0[1],Aux1[1],Aux2[1],Aux3[1]]
+
+plt.figure(figsize=(10, 10))
+plt.bar('AMBULATORIO', Aux0[1], label = "Ambulatorio",color=Colores[0])
+plt.bar('HOSPITALIZADO', Aux1[1], label = "Hospitalizado",color=Colores[1])
+plt.bar('DEFUNCION', Aux2[1], label = "Defuncion",color=Colores[2])
+plt.bar('ALTA', Aux3[1], label = "Alta",color=Colores[3])
+plt.xlabel("Casos", labelpad=14)
+plt.ylabel("Numero de Personas", labelpad=14)
+plt.title("Estatus en casos de 66 o mas años de edad",y=1.02)
+Amb = mpatches.Patch(color=Colores[0], label='Ambulatorio')
+Hosp = mpatches.Patch(color=Colores[1], label='Hospitalizado')
+Def = mpatches.Patch(color=Colores[2], label='Defuncion')
+Alta = mpatches.Patch(color=Colores[3], label='Alta')
+plt.legend(handles=[Amb,Hosp,Def,Alta])
+for index,data in enumerate(NumeroCasos):
+    plt.text(x=index, y =data+1, s=f"{data}", fontdict=dict(fontsize=12),ha='center')
+plt.savefig('img/Estatus en casos de 66 o mas años de edad.png')
+
+Aux0 = NODATAAmb.value_counts()
+Aux1 = NODATAHos.value_counts()
+Aux2 = NODATADef.value_counts()
+Aux3 = NODATAAlt.value_counts()
+x = len(Aux2)
+if(x < 2):
+    Aux2 = [Aux2[0],0]
+NumeroCasos = [Aux0[1],Aux1[1],Aux2[1],Aux3[1]]
+
+plt.figure(figsize=(10, 10))
+plt.bar('AMBULATORIO', Aux0[1], label = "Ambulatorio",color=Colores[0])
+plt.bar('HOSPITALIZADO', Aux1[1], label = "Hospitalizado",color=Colores[1])
+plt.bar('DEFUNCION', Aux2[1], label = "Defuncion",color=Colores[2])
+plt.bar('ALTA', Aux3[1], label = "Alta",color=Colores[3])
+plt.xlabel("Casos", labelpad=14)
+plt.ylabel("Numero de Personas", labelpad=14)
+plt.title("Estatus en casos de personas sin datos",y=1.02)
+Amb = mpatches.Patch(color=Colores[0], label='Ambulatorio')
+Hosp = mpatches.Patch(color=Colores[1], label='Hospitalizado')
+Def = mpatches.Patch(color=Colores[2], label='Defuncion')
+Alta = mpatches.Patch(color=Colores[3], label='Alta')
+plt.legend(handles=[Amb,Hosp,Def,Alta])
+for index,data in enumerate(NumeroCasos):
+    plt.text(x=index, y =data+1, s=f"{data}", fontdict=dict(fontsize=12),ha='center')
+plt.savefig('img/Estatus en casos de personas sin datos.png')

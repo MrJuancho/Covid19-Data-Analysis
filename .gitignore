@@ -3,3 +3,4 @@
 *.whl
 #Ignore dir
 img
+*.xlsx
