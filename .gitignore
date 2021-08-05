@@ -1,3 +1,5 @@
 # Ignore all excel data
 *.xlsx
 *.whl
+#Ignore dir
+img

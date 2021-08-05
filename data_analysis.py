@@ -1,3 +1,4 @@
+from matplotlib import colors
 import numpy as np
 import pandas as pd 
 import matplotlib.patches as mpatches
@@ -110,13 +111,13 @@ DFCasos['Fecha Result'] = DFCasos['Fecha Result'].replace(regex=[r'(^.*P.*$)',r'
 DFCasos['Resultado'] = np.where(DFCasos['Resultado'].isin(['POSITIVO','NEGATIVO','SOSPECHOSO']),DFCasos['Resultado'],'SOSPECHOSO')
 #Si necesitamos cambiar casos en los que no se parezca a ciertos datos aplicamos
 #  'np.where(DFCasos['Resultado'].isin(['POSITIVO','NEGATIVO','SOSPECHOSO']),DFCasos['Resultado'],'SOSPECHOSO')'
-DFCasos['Edad'] = DFCasos['Edad'].fillna('SIN DATO')
-DFCasos['Edad'] = DFCasos['Edad'].replace(regex=[r'(^.*RN.*$)',r'(^.*D.*$)',r'(^.*ME.*$)',r'(^.*d.*$)',r'(^.*m.*$)'], value=0)
+DFCasos['Edad'] = DFCasos['Edad'].fillna('-1')
+DFCasos['Edad'] = DFCasos['Edad'].replace(regex=[r'(^.*RN.*$)',r'(^.*D.*$)',r'(^.*ME.*$)',r'(^.*d.*$)',r'(^.*m.*$)'], value='0')
 
 DFCasos['Sexo'] = DFCasos['Sexo'].fillna('SIN DATO')
 DFCasos['Sexo'] = DFCasos['Sexo'].replace(regex=[r'(^.*F.*$)'], value='F')
 DFCasos['Sexo'] = DFCasos['Sexo'].replace(regex=[r'(^.*M.*$)',r'(^.*H.*$)',r'(^.*N.*$)'], value='M')
-DFCasos['Sexo'] = DFCasos['Sexo'].replace(regex=[r'(^.*RN.*$)',r'(^.*D.*$)'], value= 0)
+DFCasos['Sexo'] = DFCasos['Sexo'].replace(regex=[r'(^.*RN.*$)',r'(^.*D.*$)'], value= '0')
 DFCasos['Sexo'] = DFCasos['Sexo'].replace(regex=[r'(^.*AÑ.*$)'],value='')
 
 ageinGender = DFCasos['Sexo'].str.findall(r'(^.*[A-Z].*$)')
@@ -129,6 +130,8 @@ DFCasos['Sexo'] = DFCasos['Sexo'].replace(regex=[r'(^.*G.*$)',r'(^.*SN.*$)',r'(^
 DFCasos['Edad'] = DFCasos['Edad'].replace(regex=[r'(^.*M.*$)',r'(^.*H.*$)',r'(^.*N.*$)',r'(^.*,M.*$)'], value='M')
 DFCasos['Edad'] = np.where(~DFCasos['Edad'].isin(['M','F','H','NIÑO']),DFCasos['Edad'],'SIN DATO')
 DFCasos['Sexo'] = np.where(DFCasos['Sexo'].isin(['M','F','OTRO']),DFCasos['Sexo'],'OTRO')
+DFCasos['Edad'] = DFCasos['Edad'].replace(regex=[r'(^.*SIN DATO.*$)'], value='-1')
+DFCasos['Edad'] = pd.to_numeric(DFCasos['Edad'])
 
 #Exel de Verificacion de Datos
 DFCasos.to_excel('Verificar.xlsx')
@@ -140,30 +143,33 @@ plt.close('all')
 #Casos totales analizados por sexo
 Sexos = DFCasos['Sexo'].value_counts()
 Resultados = DFCasos['Resultado'].value_counts()
-Colores = ['#0A1128','#001F54','#034078','#91C4F2','#8CA0D7','#9D79BC','#A14DA0']
+Colores = ['#b7094c','#a01a58','#892b64','#723c70','#5c4d7d','#455e89','#2e6f95','#1780a1','#0091ad','#33A7BD','#0077b6','#0096c7','#00b4d8','#48cae4']
 
-DFCasos['Sexo'].value_counts().plot(kind='bar',figsize=(7, 6),rot=0,color=Colores)
+DFCasos['Sexo'].value_counts().plot(kind='bar',figsize=(10, 10),rot=0,color=Colores)
 plt.xlabel("Genero", labelpad=14)
 plt.ylabel("Numero de Personas", labelpad=14)
-plt.title("Casos de Posible Covid por Genero",y=1.02)
-fem = mpatches.Patch(color='#0A1128', label='Femenino')
-masc = mpatches.Patch(color='#001F54', label='Masculino')
-otro = mpatches.Patch(color='#034078', label='Otro')
+plt.title("Casos de Posible COVID-19 por Genero",y=1.02)
+fem = mpatches.Patch(color=Colores[0], label='Femenino')
+masc = mpatches.Patch(color=Colores[1], label='Masculino')
+otro = mpatches.Patch(color=Colores[2], label='Otro')
 plt.legend(handles=[fem,masc,otro])
 for index,data in enumerate(Sexos):
     plt.text(x=index, y =data+1, s=f"{data}", fontdict=dict(fontsize=12),ha='center')
+plt.savefig('img/Casos de Posible COVID-19 por Genero.png')
+
 
 plt.figure()
-DFCasos['Resultado'].value_counts().plot(kind='bar',figsize=(7, 6),rot=0,color=Colores)
+DFCasos['Resultado'].value_counts().plot(kind='bar',figsize=(10, 10),rot=0,color=Colores)
 plt.xlabel("Casos", labelpad=14)
 plt.ylabel("Numero de Personas", labelpad=14)
-plt.title("Casos Covid-19",y=1.02)
-neg = mpatches.Patch(color='#8CA0D7', label='Negativo')
-pos = mpatches.Patch(color='#9D79BC', label='Positivo')
-sos = mpatches.Patch(color='#A14DA0', label='Sospechoso')
+plt.title("Casos COVID-19",y=1.02)
+neg = mpatches.Patch(color=Colores[0], label='Negativo')
+pos = mpatches.Patch(color=Colores[1], label='Positivo')
+sos = mpatches.Patch(color=Colores[2], label='Sospechoso')
 plt.legend(handles=[neg,pos,sos])
 for index,data in enumerate(Resultados):
     plt.text(x=index, y =data+1, s=f"{data}", fontdict=dict(fontsize=12),ha='center')
+plt.savefig('img/Casos COVID-19.png')
 
 #Mascaras de datos
 FemPos = DFCasos['Resultado'].str.contains('POSITIVO') & DFCasos['Sexo'].str.contains('F')
@@ -183,21 +189,245 @@ Aux1 = FemNeg.value_counts()
 Aux2 = FemSos.value_counts()
 NumeroCasos = [Aux0[1],Aux1[1],Aux2[1]]
 
-plt.figure()
-plt.bar('Positivos', Aux0[1], label = "Pos")
-plt.bar('Negativos', Aux1[1], label = "Neg")
-plt.bar('Sospechosos', Aux2[1], label = "Sos")
+plt.figure(figsize=(10, 10))
+plt.bar('Positivos', Aux0[1], label = "Pos",color=Colores[0])
+plt.bar('Negativos', Aux1[1], label = "Neg",color=Colores[1])
+plt.bar('Sospechosos', Aux2[1], label = "Sos",color=Colores[2])
 plt.xlabel("Casos", labelpad=14)
 plt.ylabel("Numero de Personas", labelpad=14)
 plt.title("Casos en genero Femenino",y=1.02)
+pos = mpatches.Patch(color=Colores[0], label='Positivos')
+neg = mpatches.Patch(color=Colores[1], label='Negativos')
+sos = mpatches.Patch(color=Colores[2], label='Sospechosos')
+plt.legend(handles=[pos,neg,sos])
 for index,data in enumerate(NumeroCasos):
     plt.text(x=index, y =data+1, s=f"{data}", fontdict=dict(fontsize=12),ha='center')
+plt.savefig('img/Casos en genero Femenino.png')
 
-plt.show()
-#plt.figure()
-#plt.plot.bar(,DFCasos['Sexo'])
 
-""" mx = gpd.read_file('mapa_mexico/')\
-        .set_index('CLAVE')\
-        .to_crs(epsg=4485)
-print(mx.head()) """
+Aux0 = MasPos.value_counts()
+Aux1 = MasNeg.value_counts()
+Aux2 = MasSos.value_counts()
+NumeroCasos = [Aux0[1],Aux1[1],Aux2[1]]
+
+plt.figure(figsize=(10, 10))
+plt.bar('Positivos', Aux0[1], label = "Pos",color=Colores[0])
+plt.bar('Negativos', Aux1[1], label = "Neg",color=Colores[1])
+plt.bar('Sospechosos', Aux2[1], label = "Sos",color=Colores[2])
+plt.xlabel("Casos", labelpad=14)
+plt.ylabel("Numero de Personas", labelpad=14)
+plt.title("Casos en genero Masculino",y=1.02)
+pos = mpatches.Patch(color=Colores[0], label='Positivos')
+neg = mpatches.Patch(color=Colores[1], label='Negativos')
+sos = mpatches.Patch(color=Colores[2], label='Sospechosos')
+plt.legend(handles=[pos,neg,sos])
+for index,data in enumerate(NumeroCasos):
+    plt.text(x=index, y =data+1, s=f"{data}", fontdict=dict(fontsize=12),ha='center')
+plt.savefig('img/Casos en genero Masculino.png')
+
+
+Aux0 = OtroPos.value_counts()
+Aux1 = OtroNeg.value_counts()
+Aux2 = OtroSos.value_counts()
+NumeroCasos = [Aux0[1],Aux1[1],Aux2[1]]
+
+plt.figure(figsize=(10, 10))
+plt.bar('Positivos', Aux0[1], label = "Pos",color=Colores[0])
+plt.bar('Negativos', Aux1[1], label = "Neg",color=Colores[1])
+plt.bar('Sospechosos', Aux2[1], label = "Sos",color=Colores[2])
+plt.xlabel("Casos", labelpad=14)
+plt.ylabel("Numero de Personas", labelpad=14)
+plt.title("Casos en otros generos")
+pos = mpatches.Patch(color=Colores[0], label='Positivos')
+neg = mpatches.Patch(color=Colores[1], label='Negativos')
+sos = mpatches.Patch(color=Colores[2], label='Sospechosos')
+plt.legend(handles=[pos,neg,sos])
+for index,data in enumerate(NumeroCasos):
+    plt.text(x=index, y =data+0.125, s=f"{data}", fontdict=dict(fontsize=12),ha='center')
+plt.savefig('img/Casos en otros generos.png')
+
+plt.figure()
+EstatusGenerales = DFCasos['Estatus'].value_counts()
+DFCasos['Estatus'].value_counts().plot(kind='bar',figsize=(10, 10),rot=0,color=Colores)
+plt.xlabel("Casos", labelpad=14)
+plt.ylabel("Numero de Personas", labelpad=14)
+plt.title("Estatus de casos de COVID-19",y=1.02)
+Amb = mpatches.Patch(color=Colores[0], label='Ambulatorio')
+Hosp = mpatches.Patch(color=Colores[1], label='Hospitalizado')
+Def = mpatches.Patch(color=Colores[2], label='Defuncion')
+Alta = mpatches.Patch(color=Colores[3], label='Alta')
+plt.legend(handles=[Amb,Hosp,Def,Alta])
+for index,data in enumerate(EstatusGenerales):
+    plt.text(x=index, y =data+1, s=f"{data}", fontdict=dict(fontsize=12),ha='center')
+plt.savefig('img/Estatus de casos de COVID-19.png')
+
+FemAmb = DFCasos['Estatus'].str.contains('AMBULATORIO') & DFCasos['Sexo'].str.contains('F')
+FemHos = DFCasos['Estatus'].str.contains('HOSPITALIZADO') & DFCasos['Sexo'].str.contains('F')
+FemDef = DFCasos['Estatus'].str.contains('DEFUNCION') & DFCasos['Sexo'].str.contains('F')
+FemAlta = DFCasos['Estatus'].str.contains('ALTA') & DFCasos['Sexo'].str.contains('F')
+
+MasAmb = DFCasos['Estatus'].str.contains('AMBULATORIO') & DFCasos['Sexo'].str.contains('M')
+MasHos = DFCasos['Estatus'].str.contains('HOSPITALIZADO') & DFCasos['Sexo'].str.contains('M')
+MasDef = DFCasos['Estatus'].str.contains('DEFUNCION') & DFCasos['Sexo'].str.contains('M')
+MasAlta = DFCasos['Estatus'].str.contains('ALTA') & DFCasos['Sexo'].str.contains('M')
+
+OAmb = DFCasos['Estatus'].str.contains('AMBULATORIO') & DFCasos['Sexo'].str.contains('OTRO')
+OHos = DFCasos['Estatus'].str.contains('HOSPITALIZADO') & DFCasos['Sexo'].str.contains('OTRO')
+ODef = DFCasos['Estatus'].str.contains('DEFUNCION') & DFCasos['Sexo'].str.contains('OTRO')
+OAlta = DFCasos['Estatus'].str.contains('ALTA') & DFCasos['Sexo'].str.contains('OTRO')
+
+Aux0 = FemAmb.value_counts()
+Aux1 = FemHos.value_counts()
+Aux2 = FemDef.value_counts()
+Aux3 = FemAlta.value_counts()
+NumeroCasos = [Aux0[1],Aux1[1],Aux2[1],Aux3[1]]
+
+plt.figure(figsize=(10, 10))
+plt.bar('AMBULATORIO', Aux0[1], label = "Ambulatorio",color=Colores[0])
+plt.bar('HOSPITALIZADO', Aux1[1], label = "Hospitalizado",color=Colores[1])
+plt.bar('DEFUNCION', Aux2[1], label = "Defuncion",color=Colores[2])
+plt.bar('ALTA', Aux3[1], label = "Alta",color=Colores[3])
+plt.xlabel("Casos", labelpad=14)
+plt.ylabel("Numero de Personas", labelpad=14)
+plt.title("Estatus en casos femeninos",y=1.02)
+Amb = mpatches.Patch(color=Colores[0], label='Ambulatorio')
+Hosp = mpatches.Patch(color=Colores[1], label='Hospitalizado')
+Def = mpatches.Patch(color=Colores[2], label='Defuncion')
+Alta = mpatches.Patch(color=Colores[3], label='Alta')
+plt.legend(handles=[Amb,Hosp,Def,Alta])
+for index,data in enumerate(NumeroCasos):
+    plt.text(x=index, y =data+1, s=f"{data}", fontdict=dict(fontsize=12),ha='center')
+plt.savefig('img/Estatus en casos femeninos.png')
+
+
+Aux0 = MasAmb.value_counts()
+Aux1 = MasHos.value_counts()
+Aux2 = MasDef.value_counts()
+Aux3 = MasAlta.value_counts()
+NumeroCasos = [Aux0[1],Aux1[1],Aux2[1],Aux3[1]]
+
+plt.figure(figsize=(10, 10))
+plt.bar('AMBULATORIO', Aux0[1], label = "Ambulatorio",color=Colores[0])
+plt.bar('HOSPITALIZADO', Aux1[1], label = "Hospitalizado",color=Colores[1])
+plt.bar('DEFUNCION', Aux2[1], label = "Defuncion",color=Colores[2])
+plt.bar('ALTA', Aux3[1], label = "Alta",color=Colores[3])
+plt.xlabel("Casos", labelpad=14)
+plt.ylabel("Numero de Personas", labelpad=14)
+plt.title("Estatus en casos masculinos",y=1.02)
+Amb = mpatches.Patch(color=Colores[0], label='Ambulatorio')
+Hosp = mpatches.Patch(color=Colores[1], label='Hospitalizado')
+Def = mpatches.Patch(color=Colores[2], label='Defuncion')
+Alta = mpatches.Patch(color=Colores[3], label='Alta')
+plt.legend(handles=[Amb,Hosp,Def,Alta])
+for index,data in enumerate(NumeroCasos):
+    plt.text(x=index, y =data+1, s=f"{data}", fontdict=dict(fontsize=12),ha='center')
+plt.savefig('img/Estatus en casos masculinos.png')
+
+Aux0 = OAmb.value_counts()
+Aux1 = OHos.value_counts()
+Aux2 = ODef.value_counts()
+Aux3 = OAlta.value_counts()
+x = len(Aux2)
+if(x < 2):
+    Aux2 = [Aux2[0],0]
+
+   
+NumeroCasos = [Aux0[1],Aux1[1],Aux2[1],Aux3[1]]
+
+plt.figure(figsize=(10, 10))
+plt.bar('AMBULATORIO', Aux0[1], label = "Ambulatorio",color=Colores[0])
+plt.bar('HOSPITALIZADO', Aux1[1], label = "Hospitalizado",color=Colores[1])
+plt.bar('DEFUNCION', Aux2[1], label = "Defuncion",color=Colores[2])
+plt.bar('ALTA', Aux3[1], label = "Alta",color=Colores[3])
+plt.xlabel("Casos", labelpad=14)
+plt.ylabel("Numero de Personas", labelpad=14)
+plt.title("Estatus en otros generos",y=1.02)
+Amb = mpatches.Patch(color=Colores[0], label='Ambulatorio')
+Hosp = mpatches.Patch(color=Colores[1], label='Hospitalizado')
+Def = mpatches.Patch(color=Colores[2], label='Defuncion')
+Alta = mpatches.Patch(color=Colores[3], label='Alta')
+plt.legend(handles=[Amb,Hosp,Def,Alta])
+for index,data in enumerate(NumeroCasos):
+    plt.text(x=index, y =data+1, s=f"{data}", fontdict=dict(fontsize=12),ha='center')    
+plt.savefig('img/Estatus en otros generos.png')
+
+#Grupos de edades
+#-1 Sin datos   # 0 - 1         # 2 - 11
+# 12 - 17       # 18 - 24       # 25 - 30
+# 31 - 35       # 36 - 40       # 41 - 45
+# 46 - 50       # 51 - 55       # 56 - 60
+# 61 - 65       # 65    +
+
+Maternal = (DFCasos['Edad'] == 0) | (DFCasos['Edad'] == 1)
+Ninos = (DFCasos['Edad'] > 1) & (DFCasos['Edad'] < 12)
+Adolescentes = (DFCasos['Edad'] > 11) & (DFCasos['Edad'] < 18)
+AdultoJoven = (DFCasos['Edad'] > 17) & (DFCasos['Edad'] < 25)
+Adulto1 = (DFCasos['Edad'] > 24) & (DFCasos['Edad'] < 31)
+Adulto2 = (DFCasos['Edad'] > 30) & (DFCasos['Edad'] < 36)
+Adulto3 = (DFCasos['Edad'] > 35) & (DFCasos['Edad'] < 41)
+Adulto4 = (DFCasos['Edad'] > 40) & (DFCasos['Edad'] < 46)
+Adulto5 = (DFCasos['Edad'] > 45) & (DFCasos['Edad'] < 51)
+Adulto6 = (DFCasos['Edad'] > 50) & (DFCasos['Edad'] < 56)
+Adulto7 = (DFCasos['Edad'] > 55) & (DFCasos['Edad'] < 61)
+Adulto8 = (DFCasos['Edad'] > 60) & (DFCasos['Edad'] < 66)
+Ancianos = (DFCasos['Edad'] > 65)
+NODATA = (DFCasos['Edad'] == -1)
+
+Aux0 = Maternal.value_counts()
+Aux1 = Ninos.value_counts()
+Aux2 = Adolescentes.value_counts()
+Aux3 = AdultoJoven.value_counts()
+Aux4 = Adulto1.value_counts()
+Aux5 = Adulto2.value_counts()
+Aux6 = Adulto3.value_counts()
+Aux7 = Adulto4.value_counts()
+Aux8 = Adulto5.value_counts()
+Aux9 = Adulto6.value_counts()
+Aux10 = Adulto7.value_counts()
+Aux11 = Adulto8.value_counts()
+Aux12 = Ancianos.value_counts()
+Aux13= NODATA.value_counts()
+
+NumeroCasos = [Aux0[1],Aux1[1],Aux2[1],Aux3[1],Aux4[1],Aux5[1],Aux6[1],Aux7[1],Aux8[1],Aux9[1],Aux10[1],Aux11[1],Aux12[1],Aux13[1]]
+
+plt.figure(figsize=(10, 10))
+
+plt.bar('0-1', Aux0[1],color=Colores[0])
+plt.bar('2-11', Aux1[1], color=Colores[1])
+plt.bar('12-17', Aux2[1], color=Colores[2])
+plt.bar('18-24', Aux3[1], color=Colores[3])
+plt.bar('25-30', Aux4[1], color=Colores[4])
+plt.bar('31-35', Aux5[1], color=Colores[5])
+plt.bar('36-40', Aux6[1],color=Colores[6])
+plt.bar('41-45', Aux7[1], color=Colores[7])
+plt.bar('46-50', Aux8[1],color=Colores[8])
+plt.bar('51-55', Aux9[1],color=Colores[9])
+plt.bar('56-60', Aux10[1],color=Colores[10])
+plt.bar('61-65', Aux11[1],color=Colores[11])
+plt.bar('66+', Aux12[1], color=Colores[12])
+plt.bar('Sin Datos', Aux13[1],color=Colores[13])
+
+plt.xlabel("Rangos", labelpad=14)
+plt.ylabel("Numero de Personas", labelpad=14)
+plt.title("Casos COVID-19 en rangos de edades",y=1.02)
+Maternal_p = mpatches.Patch(color=Colores[0], label='0-1')
+Ninos_p = mpatches.Patch(color=Colores[1], label='2-11')
+Adolescentes_p = mpatches.Patch(color=Colores[2], label='12-17')
+AdultoJoven_p = mpatches.Patch(color=Colores[3], label='18-24')
+Adulto1_p = mpatches.Patch(color=Colores[4], label='25-30')
+Adulto2_p = mpatches.Patch(color=Colores[5], label='31-35')
+Adulto3_p = mpatches.Patch(color=Colores[6], label='36-40')
+Adulto4_p = mpatches.Patch(color=Colores[7], label='41-45')
+Adulto5_p = mpatches.Patch(color=Colores[8], label='46-50')
+Adulto6_p = mpatches.Patch(color=Colores[9], label='51-55')
+Adulto7_p = mpatches.Patch(color=Colores[10], label='56-60')
+Adulto8_p = mpatches.Patch(color=Colores[11], label='61-65')
+Ancianos_p = mpatches.Patch(color=Colores[12], label='66+')
+nodata_p = mpatches.Patch(color=Colores[13], label='Sin Datos')
+plt.legend(handles=[Maternal_p,Ninos_p,Adolescentes_p,AdultoJoven_p,Adulto1_p,Adulto2_p,Adulto3_p,Adulto4_p,Adulto5_p,Adulto6_p,Adulto7_p,Adulto8_p,Ancianos_p,nodata_p],loc='best')
+for index,data in enumerate(NumeroCasos):
+    plt.text(x=index, y =data+1, s=f"{data}", fontdict=dict(fontsize=12),ha='center')    
+plt.savefig('img/Casos COVID-19 en rangos de edades.png')
+
+
+
