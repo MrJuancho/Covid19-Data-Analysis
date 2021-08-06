@@ -7,6 +7,7 @@ import re
 import geopandas as gpd
 import tkinter as tk
 from tkinter import filedialog,Button,Label,Text,messagebox as MessageBox
+import os
 
 def Error():
     MessageBox.showwarning("Error!", "El archivo no es valido!") # título, mensaje
@@ -160,6 +161,12 @@ def main():
         #Exel de Verificacion de Datos
         DFCasos.to_excel('Verificar.xlsx')
 
+        #Creacion de la carpeta para guardar resultados
+        try:
+            os.makedirs("img/")
+        except FileExistsError:
+            # directory already exists
+            pass
         #Comenzamos a graficar los datos.
         #Casos totales analizados por sexo
         Sexos = DFCasos['Sexo'].value_counts()
@@ -1222,10 +1229,5 @@ def main():
     
     except:
         if(not('.xlsx' in nombre)):
-            
             Error()
-
 main()
-
-
-
