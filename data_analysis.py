@@ -1,4 +1,4 @@
-from matplotlib import colors
+ from matplotlib import colors
 import numpy as np
 import pandas as pd 
 import matplotlib.patches as mpatches
@@ -782,6 +782,15 @@ def main():
         Sospechoso = mpatches.Patch(color=Colores[2], label='Defuncion')
         plt.legend(handles=[Positivo,Negativo,Sospechoso],loc='best')
         plt.savefig('img/Rangos de Edades Vs Estatus.png')
+
+        #Grafica por meses.
+        #AncianosAmb = ((DFCasos['Edad'] > 69)) & (DFCasos['Estatus']=='AMBULATORIO')
+        DFCasos['Fecha Result'] = pd.to_datetime(DFCasos['Fecha Result'])
+        DFCasos['Fecha Result'] = pd.to_datetime(DFCasos['Fecha Result'].dt.strftime('%Y-%m-%d'))
+        asd = DFCasos['Fecha Result'].value_counts()
+        asd.to_excel("Checa.xlsx")
+
+
 
         """
         Aux0 = MaternalPos.value_counts()
