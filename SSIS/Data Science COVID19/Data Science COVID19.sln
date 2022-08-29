@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32802.440
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{C9674DCB-5085-4A16-B785-4C70DD1589BD}") = "Data Science COVID19", "Data Science COVID19\Data Science COVID19.dtproj", "{55654939-50C5-48A2-9F01-E2A49ED78419}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Development|Default = Development|Default
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{55654939-50C5-48A2-9F01-E2A49ED78419}.Development|Default.ActiveCfg = Development
+		{55654939-50C5-48A2-9F01-E2A49ED78419}.Development|Default.Build.0 = Development
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9329AC00-8322-4927-948B-A93ED40AEA9B}
+	EndGlobalSection
+EndGlobal
