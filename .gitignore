@@ -29,3 +29,14 @@ data/gold/*
 
 # Streamlit local config/secrets (never commit secrets.toml)
 .streamlit/
+
+# Ignorar datos crudos con PII
+data/bronze/
+data/silver/
+*.xlsx
+*.csv
+
+# Permitir exclusivamente la capa Gold curada y telemetría
+!data/gold/
+!data/gold/*.parquet
+!data_quality_summary.json

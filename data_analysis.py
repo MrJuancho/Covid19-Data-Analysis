@@ -1,10 +1,9 @@
- from matplotlib import colors
+from matplotlib import colors
 import numpy as np
 import pandas as pd 
 import matplotlib.patches as mpatches
 import matplotlib.pyplot as plt
 import re
-import geopandas as gpd
 import tkinter as tk
 from tkinter import filedialog,Button,Label,Text,messagebox as MessageBox
 import os
