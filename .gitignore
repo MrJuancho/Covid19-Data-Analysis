@@ -4,3 +4,28 @@
 #Ignore dir
 img
 *.xlsx
+
+# Agent credentials/auth (spec-kit warning)
+.claude/
+.gemini/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+dist/
+*.egg-info/
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+.coverage
+
+# Pipeline output (generated, not source)
+data/silver/*
+!data/silver/.gitkeep
+data/gold/*
+!data/gold/.gitkeep
+
+# Streamlit local config/secrets (never commit secrets.toml)
+.streamlit/
