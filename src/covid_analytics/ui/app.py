@@ -79,12 +79,55 @@ def _construir_filtro_sidebar(fecha_min: date, fecha_max: date) -> FiltroTablero
     )
 
 
+def _mover_leyenda_abajo(figura: go.Figure) -> go.Figure:
+    """Leyenda horizontal debajo del trazo en vez de lateral.
+
+    Una leyenda lateral le quita hasta la mitad del ancho disponible al
+    gráfico en un viewport angosto (celular). Ponerla arriba tampoco sirve:
+    en pantallas de ~375px (iPhone XR o menor) los títulos largos en
+    español se parten en dos líneas y se encima con la leyenda. Debajo del
+    eje X no compite con el título.
+    """
+    figura.update_layout(
+        legend={"orientation": "h", "yanchor": "top", "y": -0.25, "xanchor": "center", "x": 0.5},
+        margin={"b": 90},
+        title={"automargin": True},
+    )
+    return figura
+
+
+def _rotar_etiquetas_categoricas(figura: go.Figure) -> go.Figure:
+    """Inclina las etiquetas del eje X para que no se encimen cuando el
+    gráfico se angosta (celular)."""
+    figura.update_xaxes(tickangle=-30, automargin=True)
+    return figura
+
+
+def _titulo_sin_encimar(figura: go.Figure) -> go.Figure:
+    """Deja que Plotly reserve el espacio que el título realmente necesita.
+
+    Sin esto, un título largo en español que se parte en dos líneas en un
+    viewport angosto (iPhone XR o menor) se sale del margen fijo y se
+    encima con las etiquetas del gráfico.
+    """
+    figura.update_layout(title={"automargin": True})
+    return figura
+
+
 def _renderizar_kpis(vista: VistaKPI) -> None:
-    columnas = st.columns(4)
-    columnas[0].metric("Total Pruebas", str(vista.total_pruebas))
-    columnas[1].metric("Casos Positivos Confirmados", str(vista.casos_positivos_confirmados))
-    columnas[2].metric("Tasa Global de Positividad", f"{vista.tasa_global_positividad:.1%}")
-    columnas[3].metric("Tasa de Hospitalización", f"{vista.tasa_hospitalizacion:.1%}")
+    # st.container(horizontal=True) apila las tarjetas verticalmente en
+    # viewports angostos en vez de comprimirlas en 4 columnas ilegibles.
+    with st.container(horizontal=True):
+        st.metric("Total Pruebas", str(vista.total_pruebas), border=True)
+        st.metric(
+            "Casos Positivos Confirmados",
+            str(vista.casos_positivos_confirmados),
+            border=True,
+        )
+        st.metric(
+            "Tasa Global de Positividad", f"{vista.tasa_global_positividad:.1%}", border=True
+        )
+        st.metric("Tasa de Hospitalización", f"{vista.tasa_hospitalizacion:.1%}", border=True)
 
 
 def _renderizar_curva_epidemiologica(series_filtrada: pd.DataFrame) -> None:
@@ -104,6 +147,7 @@ def _renderizar_curva_epidemiologica(series_filtrada: pd.DataFrame) -> None:
         labels={"value": "Casos", "fecha": "Fecha", "variable": "Serie"},
         title="Casos diarios y media móvil de 7 días",
     )
+    _mover_leyenda_abajo(figura)
     st.plotly_chart(figura, width="stretch")
 
 
@@ -129,6 +173,7 @@ def _renderizar_demografia(demografia_filtrada: pd.DataFrame) -> None:
         title="Pirámide poblacional (edad × sexo)",
         labels={"casos_mostrados": "Casos", "grupo_edad_ui": "Grupo etario"},
     )
+    _mover_leyenda_abajo(figura_piramide)
     st.plotly_chart(figura_piramide, width="stretch")
 
     con_indicadores = demografia_filtrada.copy()
@@ -156,6 +201,7 @@ def _renderizar_demografia(demografia_filtrada: pd.DataFrame) -> None:
         title="Tasa de positividad por grupo etario",
         labels={"grupo_edad_ui": "Grupo etario", "tasa_positividad": "Tasa de positividad"},
     )
+    _titulo_sin_encimar(figura_positividad)
     st.plotly_chart(figura_positividad, width="stretch")
 
 
@@ -196,6 +242,7 @@ def _renderizar_geografia(geografia: pd.DataFrame, geojson: dict[str, Any] | Non
         height=700,
     )
     figura.update_layout(margin={"l": 10, "r": 10, "t": 30, "b": 10})
+    _titulo_sin_encimar(figura)
     st.plotly_chart(figura, width="stretch")
 
     if municipios_omitidos:
@@ -231,6 +278,8 @@ def _renderizar_riesgo_clinico(derechohabiencia: pd.DataFrame) -> None:
         title="Derechohabiencia vs. resultado de prueba",
         labels={"derechohabiencia": "Derechohabiencia", "total_casos": "Casos"},
     )
+    _mover_leyenda_abajo(figura_resultado)
+    _rotar_etiquetas_categoricas(figura_resultado)
     st.plotly_chart(figura_resultado, width="stretch")
 
     tasas = con_valor_analitico[
@@ -247,6 +296,8 @@ def _renderizar_riesgo_clinico(derechohabiencia: pd.DataFrame) -> None:
             "tasa_hospitalizacion_grupo": "Tasa de hospitalización",
         },
     )
+    _rotar_etiquetas_categoricas(figura_hospitalizacion)
+    _titulo_sin_encimar(figura_hospitalizacion)
     st.plotly_chart(figura_hospitalizacion, width="stretch")
 
 
